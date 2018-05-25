@@ -8,7 +8,13 @@ public class ZombieCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand( CommandSender sender, Command command, String label, String[] args ) {
+		if ( args.length == 0 ) {
+			showHelp( sender );
+		}
 		return false;
 	}
 
+	private void showHelp( CommandSender sender ) {
+		sender.sendMessage( "U n00b" );
+	}
 }
