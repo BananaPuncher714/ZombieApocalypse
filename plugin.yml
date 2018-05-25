@@ -1,0 +1,9 @@
+main: com.gmail.deathbysniper727.zombieapocalypse.ZombieApocalypse
+name: ZombieApocalypse
+version: 1.5.1
+author: sheodox
+description: Adds a world event for a zombie apocalypse
+commands:
+  za:
+    description: displays information about the Zombie Apocalypse plugin
+    usage: /<command>

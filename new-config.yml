@@ -1,0 +1,12 @@
+rewards:
+  item-1:
+    id:
+    data:
+    name:
+    lore:
+    - ""
+    - ""
+    amount: 10
+    chance: .5
+    
+    
