@@ -25,8 +25,13 @@ public class TimeWatcher {
 					continue;
 				}
 				// Start the apocalypse
-			} else if ( worldTime > apocalypse.getEnd() && worldTime <= apocalypse.getEnd() + 20 ) {
+				apocalypse.start();
+			} else if ( worldTime > apocalypse.getEnd() && worldTime <= apocalypse.getEnd() + 100 ) {
 				// Stop the apocalypse
+				if ( apocalypse.isRunning() ) {
+					continue;
+				}
+				apocalypse.stop();
 			}
 			
 		}
