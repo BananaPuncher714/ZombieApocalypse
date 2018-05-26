@@ -18,6 +18,8 @@ import io.github.bananapuncher714.zombieapocalypse.util.ApocalypseDeserializer;
 import io.github.bananapuncher714.zombieapocalypse.util.FileUtil;
 
 public class ZombieApocalypse extends JavaPlugin {
+	public static final int MOB_CAP = 200;
+	
 	private static boolean placeholderAPI, mvdwPlaceholderAPI;
 	
 	@Override

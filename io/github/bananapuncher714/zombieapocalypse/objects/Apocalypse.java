@@ -22,6 +22,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.bananapuncher714.zombieapocalypse.ApocalypseManager;
+import io.github.bananapuncher714.zombieapocalypse.ZombieApocalypse;
 import io.github.bananapuncher714.zombieapocalypse.util.Util;
 
 public class Apocalypse {
@@ -247,11 +248,17 @@ public class Apocalypse {
 	}
 
 	private void spawnMobs( SpawnSet set, Player player ) {
+		if ( monsters.size() > ZombieApocalypse.MOB_CAP ) {
+			return;
+		}
 		Set< Entity > mobsSpawned = set.spawn( player );
 		for ( Entity mob : mobsSpawned ) {
-			monsters.put( mob.getUniqueId(), true );
+			if ( monsters.size() > ZombieApocalypse.MOB_CAP ) {
+				mob.remove();
+			} else {
+				monsters.put( mob.getUniqueId(), true );
+			}
 		}
-		System.out.println( monsters.size() );
 	}
 
 	private void giveRewards( RewardSet set, Player player, double percentKilled ) {
