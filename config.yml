@@ -3,17 +3,17 @@ mob-cap-per-apocalypse: 200
 messages:
   command:
     help: "&cUsage: /zombieapocalypse <start|stop|end|saveexamples>"
-    apocalypse-required: "&1[&9ZombieApocalypse&1]&cYou must provide an apocalypse as an argument!"
+    apocalypse-required: "&1[&9ZombieApocalypse&1] &cYou must provide an apocalypse as an argument!"
     no-permission: "&cYou do not have permission to run this command!"
-    invalid-apocalypse: "&1[&9ZombieApocalypse&1]&c'%0' is not a valid apocalypse!"
+    invalid-apocalypse: "&1[&9ZombieApocalypse&1] &c'%0' is not a valid apocalypse!"
     must-be-player: "&cYou must be a player to run this command!"
 
-    no-apocalypses-started: "&1[&9ZombieApocalypse&1]&cNo apocalypses were started"
+    no-apocalypses-started: "&1[&9ZombieApocalypse&1] &cNo apocalypses were started"
     starting-apocalypses: "&1[&9ZombieApocalypse&1]&aStarting apocalypses..."
     started-apocalypse: "&1[&9ZombieApocalypse&1]&aStarted apocalypse '&e%0&a'"
     done-starting-apocalypses: "&1[&9ZombieApocalypse&1]&aDone starting apocalypses!"
  
-    no-apocalypses-stopped: "&1[&9ZombieApocalypse&1]&cNo apocalypses were stopped"
+    no-apocalypses-stopped: "&1[&9ZombieApocalypse&1] &cNo apocalypses were stopped"
     stopping-apocalypses: "&1[&9ZombieApocalypse&1]&aStopping apocalypses..."
     stopped-apocalypse-naturally: "&1[&9ZombieApocalypse&1]&aStopped apocalypse '&e%0&a' naturally"
     stopped-apocalypse-forcefully: "&1[&9ZombieApocalypse&1]&aStopped apocalypse '&e%0&a' forcefully"
@@ -24,11 +24,11 @@ messages:
     arguments-required: "&cYou must provide a valid RewardSet id!"
     invalid-reward-set: "&c'%0' is not a valid RewardSet!"
   notifications:
-    started-apocalypse: "&1[&9ZombieApocalypse&1]&c&lThe sky darkens and you hear sounds coming from the ground..."
+    started-apocalypse: "&1[&9ZombieApocalypse&1] &c&lThe sky darkens and you hear sounds coming from the ground..."
     completed-apocalypse: "&1[&9ZombieApocalypse&1]&aYou have successfully defeated the onslaught!" 
-    not-enough-players: "&1[&9ZombieApocalypse&1]&cThe hordes leave due to lack of competition..."   
+    not-enough-players: "&1[&9ZombieApocalypse&1] &cThe hordes leave due to lack of competition..."   
     win-stuff: "&1[&9ZombieApocalypse&1]&bYou have won glorious loot!"
-    lost-stuff: "&1[&9ZombieApocalypse&1]&cYou have failed to defeat the onslaught."
-    died: "&1[&9ZombieApocalypse&1]&cYou have fallen victim to the monsters..."
-    no-tp: "&1[&9ZombieApocalypse&1]&cA mysterious force prevents you from teleporting..."
+    lost-stuff: "&1[&9ZombieApocalypse&1] &cYou have failed to defeat the onslaught."
+    died: "&1[&9ZombieApocalypse&1] &cYou have fallen victim to the monsters..."
+    no-tp: "&1[&9ZombieApocalypse&1] &cA mysterious force prevents you from teleporting..."
     escaped: "&1[&9ZombieApocalypse&1]&bYou have escaped from the advancing horde!"
