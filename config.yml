@@ -2,33 +2,68 @@ mob-cap-per-apocalypse: 200
 
 messages:
   command:
-    help: "&cUsage: /zombieapocalypse <start|stop|end|saveexamples>"
-    apocalypse-required: "&1[&9ZombieApocalypse&1] &cYou must provide an apocalypse as an argument!"
-    no-permission: "&cYou do not have permission to run this command!"
-    invalid-apocalypse: "&1[&9ZombieApocalypse&1] &c'%0' is not a valid apocalypse!"
-    must-be-player: "&cYou must be a player to run this command!"
+    help:
+    - "&cUsage: /zombieapocalypse <start|stop|end|saveexamples>"
+    apocalypse-required:
+    - "&1[&9ZombieApocalypse&1] &cYou must provide an apocalypse as an argument!"
+    no-permission:
+    - "&cYou do not have permission to run this command!"
+    invalid-apocalypse:
+    - "&1[&9ZombieApocalypse&1] &c'%0' is not a valid apocalypse!"
+    must-be-player:
+    - "&cYou must be a player to run this command!"
 
-    no-apocalypses-started: "&1[&9ZombieApocalypse&1] &cNo apocalypses were started"
-    starting-apocalypses: "&1[&9ZombieApocalypse&1]&aStarting apocalypses..."
-    started-apocalypse: "&1[&9ZombieApocalypse&1]&aStarted apocalypse '&e%0&a'"
-    done-starting-apocalypses: "&1[&9ZombieApocalypse&1]&aDone starting apocalypses!"
+    no-apocalypses-started:
+    - "&1[&9ZombieApocalypse&1] &cNo apocalypses were started"
+    starting-apocalypses:
+    - "&1[&9ZombieApocalypse&1]&aStarting apocalypses..."
+    started-apocalypse:
+    - "&1[&9ZombieApocalypse&1]&aStarted apocalypse '&e%0&a'"
+    done-starting-apocalypses:
+    - "&1[&9ZombieApocalypse&1]&aDone starting apocalypses!"
  
-    no-apocalypses-stopped: "&1[&9ZombieApocalypse&1] &cNo apocalypses were stopped"
-    stopping-apocalypses: "&1[&9ZombieApocalypse&1]&aStopping apocalypses..."
-    stopped-apocalypse-naturally: "&1[&9ZombieApocalypse&1]&aStopped apocalypse '&e%0&a' naturally"
-    stopped-apocalypse-forcefully: "&1[&9ZombieApocalypse&1]&aStopped apocalypse '&e%0&a' forcefully"
-    done-stopping-apocalypses: "&1[&9ZombieApocalypse&1]&aDone stopping apocalypses!"
+    no-apocalypses-stopped:
+    - "&1[&9ZombieApocalypse&1] &cNo apocalypses were stopped"
+    stopping-apocalypses:
+    - "&1[&9ZombieApocalypse&1]&aStopping apocalypses..."
+    stopped-apocalypse-naturally:
+    - "&1[&9ZombieApocalypse&1]&aStopped apocalypse '&e%0&a' naturally"
+    stopped-apocalypse-forcefully:
+    - "&1[&9ZombieApocalypse&1]&aStopped apocalypse '&e%0&a' forcefully"
+    done-stopping-apocalypses:
+    - "&1[&9ZombieApocalypse&1]&aDone stopping apocalypses!"
     
-    saved-examples: "&1[&9ZombieApocalypse&1]&bSaved examples successfully!"
+    saved-examples:
+    - "&1[&9ZombieApocalypse&1]&bSaved examples successfully!"
     
-    arguments-required: "&cYou must provide a valid RewardSet id!"
-    invalid-reward-set: "&c'%0' is not a valid RewardSet!"
+    arguments-required:
+    - "&cYou must provide a valid RewardSet id!"
+    invalid-reward-set:
+    - "&c'%0' is not a valid RewardSet!"
   notifications:
-    started-apocalypse: "&1[&9ZombieApocalypse&1] &c&lThe sky darkens and you hear sounds coming from the ground..."
-    completed-apocalypse: "&1[&9ZombieApocalypse&1]&aYou have successfully defeated the onslaught!" 
-    not-enough-players: "&1[&9ZombieApocalypse&1] &cThe hordes leave due to lack of competition..."   
-    win-stuff: "&1[&9ZombieApocalypse&1]&bYou have won glorious loot!"
-    lost-stuff: "&1[&9ZombieApocalypse&1] &cYou have failed to defeat the onslaught."
-    died: "&1[&9ZombieApocalypse&1] &cYou have fallen victim to the monsters..."
-    no-tp: "&1[&9ZombieApocalypse&1] &cA mysterious force prevents you from teleporting..."
-    escaped: "&1[&9ZombieApocalypse&1]&bYou have escaped from the advancing horde!"
+    started-apocalypse:
+    - "&1[&9ZombieApocalypse&1] &c&lThe sky darkens and you hear sounds coming from the ground..."
+    - "&1[&9ZombieApocalypse&1] &c&lThe earth shakes and you hear moaning nearby"
+    completed-apocalypse:
+    - "&1[&9ZombieApocalypse&1]&a&lThe sounds of the undead slowly fades away!" 
+    - "&1[&9ZombieApocalypse&1]&a&lThe undead flee!"
+    - "&1[&9ZombieApocalypse&1]&a&lYou hear the fanfare of triumph"
+    not-enough-players:
+    - "&1[&9ZombieApocalypse&1] &cThe hordes leave due to lack of competition..."
+    - "&1[&9ZombieApocalypse&1] &cThe undead appear uninterested in you"
+    - "&1[&9ZombieApocalypse&1] &cNobody shows up to the party..." 
+    win-stuff:
+    - "&1[&9ZombieApocalypse&1]&bRelics of awesomeness have been left behind!"
+    - "&1[&9ZombieApocalypse&1]&bNew items have been discovered!"
+    lost-stuff:
+    - "&1[&9ZombieApocalypse&1] &cThe sounds of the undead shake the earth then vanish."
+    - "&1[&9ZombieApocalypse&1] &cThe enemies retreat but you have a feeling they will be back..."
+    died:
+    - "&1[&9ZombieApocalypse&1] &cYou have fallen victim to the monsters..."
+    - "&1[&9ZombieApocalypse&1] &cYou've lost your cake!"
+    no-tp:
+    - "&1[&9ZombieApocalypse&1] &cA mysterious force prevents you from teleporting..."
+    - "&1[&9ZombieApocalypse&1] &cThe Flying Spaghetti Monster enforces its Noodly Appendage upon you"
+    escaped:
+    - "&1[&9ZombieApocalypse&1]&bYou have escaped from the advancing horde!"
+    - "&1[&9ZombieApocalypse&1]&bYou make it out in one piece"

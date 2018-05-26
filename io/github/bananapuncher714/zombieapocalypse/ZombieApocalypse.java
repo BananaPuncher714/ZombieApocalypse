@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -34,8 +36,10 @@ public class ZombieApocalypse extends JavaPlugin {
 
 	private static boolean placeholderAPI, mvdwPlaceholderAPI;
 
-	private static Map< String, String > messages = new HashMap< String, String >();
+	private static Map< String, List< String > > messages = new HashMap< String, List< String > >();
 
+	private static Random random = new Random();
+	
 	@Override
 	public void onEnable() {
 		saveDefaultConfig();
@@ -66,7 +70,7 @@ public class ZombieApocalypse extends JavaPlugin {
 		FileConfiguration config = getConfig();
 		MOB_CAP = config.getInt( "mob-cap-per-apocalypse" );
 		for ( String string : config.getConfigurationSection( "messages" ).getKeys( true ) ) {
-			messages.put( string, config.getString( "messages." + string ) );
+			messages.put( string, config.getStringList( "messages." + string ) );
 		}
 		if ( config.getConfigurationSection( "standard-rewards" ) != null ) {
 			for ( String set : config.getConfigurationSection( "standard-rewards" ).getKeys( false ) ) {
@@ -129,7 +133,7 @@ public class ZombieApocalypse extends JavaPlugin {
 	}
 
 	public static String parse( String key, CommandSender player, String... args ) {
-		String message = parse( player, messages.get( key ) );
+		String message = parse( player, messages.get( key ).get( random.nextInt( messages.get( key ).size() ) ) );
 		for ( int i = 0; i < args.length; i++ ) {
 			message = message.replace( "%" + i, args[ i ] );
 		}

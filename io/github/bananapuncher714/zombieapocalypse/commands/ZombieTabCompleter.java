@@ -26,6 +26,7 @@ public class ZombieTabCompleter implements TabCompleter {
 				aos.add( "stop" );
 				aos.add( "end" );
 				aos.add( "help" );
+				aos.add( "panel" );
 			}
 			if ( ZombiePerms.isAdmin( arg0 ) ) {
 				aos.add( "saveexamples" );

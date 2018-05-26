@@ -187,7 +187,8 @@ public class Apocalypse {
 			return;
 		}
 		isRunning = true;
-
+		ZombieApocalypse.getConsoleLogger().info( "Starting apocalypse '" + id + "'" );
+		
 		SpawnSet set = Util.getRandom( spawns );
 		monsters.clear();
 		for ( UUID uuid : participants ) {
@@ -225,7 +226,7 @@ public class Apocalypse {
 
 	public void stop( boolean cancel ) {
 		isRunning = false;
-		ZombieApocalypse.getConsoleLogger().warning( "Stopped apocalypse '" + id + "'" );
+		ZombieApocalypse.getConsoleLogger().info( "Stopped apocalypse '" + id + "'" );
 		for ( UUID monster : monsters.keySet() ) {
 			Entity mob = Bukkit.getEntity( monster );
 			if ( mob != null ) {

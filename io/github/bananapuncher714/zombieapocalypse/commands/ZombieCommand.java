@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import io.github.bananapuncher714.zombieapocalypse.ApocalypseManager;
 import io.github.bananapuncher714.zombieapocalypse.ZombieApocalypse;
 import io.github.bananapuncher714.zombieapocalypse.ZombiePerms;
+import io.github.bananapuncher714.zombieapocalypse.inventory.ApocalypsePanelHolder;
 import io.github.bananapuncher714.zombieapocalypse.inventory.RewardEditorHolder;
 import io.github.bananapuncher714.zombieapocalypse.objects.Apocalypse;
 import io.github.bananapuncher714.zombieapocalypse.objects.RewardSet;
@@ -35,6 +36,8 @@ public class ZombieCommand implements CommandExecutor {
 				open( sender, args );
 			} else if ( args[ 0 ].equalsIgnoreCase( "help" ) ) {
 				showHelp( sender );
+			} else if ( args[ 0 ].equalsIgnoreCase( "panel" ) ) {
+				panel( sender, args );
 			}
 		} else {
 			showHelp( sender );
@@ -51,6 +54,7 @@ public class ZombieCommand implements CommandExecutor {
 		sender.sendMessage( ChatColor.AQUA + "/zombieapocalypse stop [id] " + ChatColor.YELLOW + "- Stops the given apocalypse naturally" );
 		sender.sendMessage( ChatColor.AQUA + "/zombieapocalypse start [id] " + ChatColor.YELLOW + "- Starts the given apocalypse" );
 		sender.sendMessage( ChatColor.AQUA + "/zombieapocalypse end <id> " + ChatColor.YELLOW + "- Stops the given apocalypse forcefully" );
+		sender.sendMessage( ChatColor.AQUA + "/zombieapocalypse panel " + ChatColor.YELLOW + "- Opens the Zombie Apocalypse control panel" );
 		sender.sendMessage( ChatColor.AQUA + "/zombieapocalypse help " + ChatColor.YELLOW + "- Shows this message" );
 		if ( !ZombiePerms.isAdmin( sender ) ) {
 			return;
@@ -161,6 +165,19 @@ public class ZombieCommand implements CommandExecutor {
 		}
 		apocalypse.stop( false );
 		sender.sendMessage( ZombieApocalypse.parse( "stopped-apocalypse-forcefully", sender ) );
+	}
+	
+	private void panel( CommandSender sender, String[] args ) {
+		if ( !ZombiePerms.canStartAndStop( sender ) ) {
+			sender.sendMessage( ZombieApocalypse.parse( "command.no-permission", sender ) );
+			return;
+		}
+		if ( !( sender instanceof Player ) ) {
+			sender.sendMessage( ZombieApocalypse.parse( "command.must-be-player", sender ) );
+			return;
+		}
+		Player player = ( Player ) sender;
+		player.openInventory( new ApocalypsePanelHolder().getInventory() );
 	}
 	
 	private void save( CommandSender sender ) {
