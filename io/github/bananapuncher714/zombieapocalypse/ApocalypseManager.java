@@ -1,7 +1,9 @@
 package io.github.bananapuncher714.zombieapocalypse;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -76,6 +78,17 @@ public class ApocalypseManager {
 				config.set( "standard-rewards." + id, srs.getItems() );
 			}
 		}
+	}
+	
+	public List< String > getStandardRewardSets() {
+		List< String > ids = new ArrayList< String >();
+		for ( String id : rewards.keySet() ) {
+			RewardSet set = rewards.get( id );
+			if ( set instanceof StandardRewardSet ) {
+				ids.add( id );
+			}
+		}
+		return ids;
 	}
 	
 	public static ApocalypseManager getInstance() {

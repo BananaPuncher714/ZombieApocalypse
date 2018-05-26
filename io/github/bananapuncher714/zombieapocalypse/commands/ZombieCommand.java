@@ -44,7 +44,7 @@ public class ZombieCommand implements CommandExecutor {
 	}
 
 	private void start( CommandSender sender, String[] args ) {
-		if ( !ZombiePerms.isAdmin( sender ) ) {
+		if ( !ZombiePerms.canStartAndStop( sender ) ) {
 			sender.sendMessage( ZombieApocalypse.parse( "command.no-permission", sender ) );
 			return;
 		}
@@ -87,7 +87,7 @@ public class ZombieCommand implements CommandExecutor {
 	}
 	
 	private void stop( CommandSender sender, String[] args ) {
-		if ( !ZombiePerms.isAdmin( sender ) ) {
+		if ( !ZombiePerms.canStartAndStop( sender ) ) {
 			sender.sendMessage( ZombieApocalypse.parse( "command.no-permission", sender ) );
 			return;
 		}
@@ -130,7 +130,7 @@ public class ZombieCommand implements CommandExecutor {
 	}
 	
 	private void end( CommandSender sender, String[] args ) {
-		if ( !ZombiePerms.isAdmin( sender ) ) {
+		if ( !ZombiePerms.canStartAndStop( sender ) ) {
 			sender.sendMessage( ZombieApocalypse.parse( "command.no-permission", sender ) );
 			return;
 		}

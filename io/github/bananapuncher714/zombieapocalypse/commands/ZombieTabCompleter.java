@@ -20,21 +20,27 @@ public class ZombieTabCompleter implements TabCompleter {
 		List< String > completions = new ArrayList< String >();
 		List< String > aos = new ArrayList< String >();
 
-		if ( !ZombiePerms.isAdmin( arg0 ) ) {
-			return completions;
-		}
 		if ( arg3.length == 1 ) {
-			aos.add( "start" );
-			aos.add( "stop" );
-			aos.add( "end" );
-			aos.add( "saveexamples" );
-			aos.add( "open" );
+			if ( ZombiePerms.canStartAndStop( arg0 ) ) {
+				aos.add( "start" );
+				aos.add( "stop" );
+				aos.add( "end" );
+			}
+			if ( ZombiePerms.isAdmin( arg0 ) ) {
+				aos.add( "saveexamples" );
+				aos.add( "open" );
+			}
 		} else if ( arg3.length == 2 ) {
 			if ( arg3[ 0 ].equalsIgnoreCase( "save" ) ) {
 			} else if ( arg3[ 0 ].equalsIgnoreCase( "open" ) ) {
+				if ( ZombiePerms.isAdmin( arg0 ) ) {
+					aos.addAll( ApocalypseManager.getInstance().getStandardRewardSets() );
+				}
 			} else {
-				for ( Apocalypse apocalypse : ApocalypseManager.getInstance().getApocalypses() ) {
-					aos.add( apocalypse.getId() );
+				if ( ZombiePerms.canStartAndStop( arg0 ) ) {
+					for ( Apocalypse apocalypse : ApocalypseManager.getInstance().getApocalypses() ) {
+						aos.add( apocalypse.getId() );
+					}
 				}
 			}
 		}

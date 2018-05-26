@@ -6,4 +6,8 @@ public class ZombiePerms {
 	public static boolean isAdmin( Permissible user ) {
 		return user.hasPermission( "zombieapocalypse.admin" );
 	}
+	
+	public static boolean canStartAndStop( Permissible user ) {
+		return user.hasPermission( "zombieapocalypse.manage" ) || isAdmin( user );
+	}
 }
