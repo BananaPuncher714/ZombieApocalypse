@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.zombieapocalypse.ApocalypseManager;
+import io.github.bananapuncher714.zombieapocalypse.ZombiePerms;
 import io.github.bananapuncher714.zombieapocalypse.objects.Apocalypse;
 
 public class ZombieCommand implements CommandExecutor {
@@ -34,6 +35,10 @@ public class ZombieCommand implements CommandExecutor {
 	}
 
 	private void start( CommandSender sender, String[] args ) {
+		if ( !ZombiePerms.isAdmin( sender ) ) {
+			sender.sendMessage( "You do not have permission to run this command!" );
+			return;
+		}
 		List< Apocalypse > starts = new ArrayList< Apocalypse >();
 		if ( args.length > 1 ) {
 			Apocalypse apocalypse = ApocalypseManager.getInstance().getApocalypse( args[ 1 ] );
@@ -68,6 +73,10 @@ public class ZombieCommand implements CommandExecutor {
 	}
 	
 	private void stop( CommandSender sender, String[] args ) {
+		if ( !ZombiePerms.isAdmin( sender ) ) {
+			sender.sendMessage( "You do not have permission to run this command!" );
+			return;
+		}
 		List< Apocalypse > starts = new ArrayList< Apocalypse >();
 		if ( args.length > 1 ) {
 			Apocalypse apocalypse = ApocalypseManager.getInstance().getApocalypse( args[ 1 ] );
@@ -102,6 +111,10 @@ public class ZombieCommand implements CommandExecutor {
 	}
 	
 	private void end( CommandSender sender, String[] args ) {
+		if ( !ZombiePerms.isAdmin( sender ) ) {
+			sender.sendMessage( "You do not have permission to run this command!" );
+			return;
+		}
 		if ( args.length < 2 ) {
 			sender.sendMessage( "Must provide apocalypse name!" );
 			return;

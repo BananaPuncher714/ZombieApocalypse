@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.bananapuncher714.zombieapocalypse.commands.ZombieCommand;
+import io.github.bananapuncher714.zombieapocalypse.commands.ZombieTabCompleter;
 import io.github.bananapuncher714.zombieapocalypse.dependencies.ClipsPlaceholder;
 import io.github.bananapuncher714.zombieapocalypse.dependencies.MvDWPlaceholder;
 import io.github.bananapuncher714.zombieapocalypse.dependencies.ZombieApocalypseExpansion;
@@ -40,6 +41,7 @@ public class ZombieApocalypse extends JavaPlugin {
 	
 	private void registerCommands() {
 		getCommand( "zombieapocalypse" ).setExecutor( new ZombieCommand() );
+		getCommand( "zombieapocalypse" ).setTabCompleter( new ZombieTabCompleter() );
 	}
 	
 	private void registerListeners() {
