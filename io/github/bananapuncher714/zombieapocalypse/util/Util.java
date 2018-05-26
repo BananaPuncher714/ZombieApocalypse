@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Util {
 
-	public < T > T getRandom( Map< T, Integer > objects ) {
+	public static < T > T getRandom( Map< T, Integer > objects ) {
 		int sum = 0;
 		for ( int i : objects.values() ) {
 			sum = sum + i;

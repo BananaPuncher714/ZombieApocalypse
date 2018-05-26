@@ -1,9 +1,10 @@
-main: com.gmail.deathbysniper727.zombieapocalypse.ZombieApocalypse
+main: io.github.bananapuncher714.zombieapocalypse.ZombieApocalypse
 name: ZombieApocalypse
-version: 1.5.1
-author: sheodox
-description: Adds a world event for a zombie apocalypse
+version: 1.0
+author: BananaPuncher714
+description: Adds cool stuff
 commands:
-  za:
+  zombieapocalypse:
     description: displays information about the Zombie Apocalypse plugin
-    usage: /<command>
+    aliases:
+    - "za"

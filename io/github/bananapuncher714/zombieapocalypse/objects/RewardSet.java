@@ -6,5 +6,5 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public abstract class RewardSet {
-	public abstract List< ItemStack > getRewards( Player player, Apocalypse apocalypse );
+	public abstract List< ItemStack > getRewards( Player player, double percentKilled, Apocalypse apocalypse );
 }

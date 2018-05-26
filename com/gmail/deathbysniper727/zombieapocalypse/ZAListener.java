@@ -103,39 +103,4 @@ public class ZAListener implements Listener, Runnable {
 		main.zahappening = true;
 	}
 
-	@Override
-	public void run() {
-		if (worldname.equals("")) {
-			worldname = main.getConfig().getString("world");
-		}
-		long time = Bukkit.getServer().getWorld(worldname).getTime();
-		if ((time >= 23000 && time <= 23060) || (time >= 25 && time <= 85)) {
-			if (main.zahappening) {
-				main.zahappening = false;
-				for (Player p : Bukkit.getOnlinePlayers()) {
-					if (p.getWorld().toString().equals("CraftWorld{name=" + worldname + "}")) {
-						p.sendMessage(ChatColor.RED + "ZA: You have failed! The zombies have overwhelmed you.");
-					}
-				}
-			}
-		}
-	}
-
-	/***************************************************************************
-	 * OTHER EVENT HANDLERS, NOT DEALING WITH APOCALYPSE
-	 **************************************************************************/
-
-	@EventHandler // called when a player joins the server
-	public void PlayerWelcome(PlayerJoinEvent e) {
-		e.getPlayer().sendMessage(ChatColor.GREEN + "ZA: This server runs the Zombie Apocalypse plugin by sheodox");
-		e.getPlayer().sendMessage(ChatColor.GREEN + "ZA: Type /za help to see information about ZA.");
-	}
-
-	@EventHandler // called when a player tries to enter bed, forces them not to sleep
-	public void kickOutOfBed(PlayerBedEnterEvent e) {
-		if (main.zahappening) {
-			e.getPlayer().sendMessage(ChatColor.RED + "ZA: You're too scared to sleep during the zombie apocalypse.");
-			e.setCancelled(true);
-		}
-	}
 }

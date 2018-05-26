@@ -20,6 +20,10 @@ public class ApocalypseManager {
 		return crises.get( id );
 	}
 	
+	public void registerApocalypse( Apocalypse apocalypse ) {
+		crises.put( apocalypse.getId(), apocalypse );
+	}
+	
 	public boolean isInApocalypse( Player player ) {
 		for ( Apocalypse apocalypse : crises.values() ) {
 			if ( apocalypse.isParticipant( player ) ) {
@@ -27,6 +31,12 @@ public class ApocalypseManager {
 			}
 		}
 		return false;
+	}
+	
+	public void disable() {
+		for ( Apocalypse apocalypse : crises.values() ) {
+			apocalypse.stop( true );
+		}
 	}
 	
 	public Collection< Apocalypse > getApocalypses() {

@@ -15,8 +15,16 @@ public class ZombieApocalypse extends JavaPlugin {
 		
 		registerCommands();
 		registerListeners();
+		
+		new TimeWatcher( this );
+		
+		DemoStarter.init();
 	}
 
+	@Override
+	public void onDisable() {
+		ApocalypseManager.getInstance().disable();
+	}
 	
 	private void registerCommands() {
 		getCommand( "zombieapocalypse" ).setExecutor( new ZombieCommand() );

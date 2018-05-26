@@ -19,7 +19,7 @@ public class MobListener implements Listener {
 	@EventHandler
 	public void onPlayerDeathEvent( PlayerDeathEvent event ) {
 		for ( Apocalypse apocalypse : manager.getApocalypses() ) {
-			if ( !apocalypse.isRunning() || apocalypse.isParticipant( event.getEntity() ) ) {
+			if ( !apocalypse.isRunning() || !apocalypse.isParticipant( event.getEntity() ) ) {
 				continue;
 			}
 			apocalypse.onPlayerDeathEvent( event );
@@ -29,7 +29,7 @@ public class MobListener implements Listener {
 	@EventHandler
 	public void onPlayerQuitEvent( PlayerQuitEvent event ) {
 		for ( Apocalypse apocalypse : manager.getApocalypses() ) {
-			if ( !apocalypse.isRunning() || apocalypse.isParticipant( event.getPlayer() ) ) {
+			if ( !apocalypse.isRunning() || !apocalypse.isParticipant( event.getPlayer() ) ) {
 				continue;
 			}
 			apocalypse.onPlayerQuitEvent( event );
@@ -39,7 +39,7 @@ public class MobListener implements Listener {
 	@EventHandler
 	public void onPlayerTeleportEvent( PlayerTeleportEvent event ) {
 		for ( Apocalypse apocalypse : manager.getApocalypses() ) {
-			if ( !apocalypse.isRunning() || apocalypse.isParticipant( event.getPlayer() ) ) {
+			if ( !apocalypse.isRunning() || !apocalypse.isParticipant( event.getPlayer() ) ) {
 				continue;
 			}
 			apocalypse.onPlayerTeleportEvent( event );
@@ -49,7 +49,7 @@ public class MobListener implements Listener {
 	@EventHandler
 	public void onPlayerChangeWorldEvent( PlayerChangedWorldEvent event ) {
 		for ( Apocalypse apocalypse : manager.getApocalypses() ) {
-			if ( !apocalypse.isRunning() || apocalypse.isParticipant( event.getPlayer() ) ) {
+			if ( !apocalypse.isRunning() || !apocalypse.isParticipant( event.getPlayer() ) ) {
 				continue;
 			}
 			apocalypse.onPlayerChangeWorldEvent( event );
