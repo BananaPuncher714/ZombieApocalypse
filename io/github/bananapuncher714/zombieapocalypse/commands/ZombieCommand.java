@@ -1,14 +1,27 @@
 package io.github.bananapuncher714.zombieapocalypse.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import io.github.bananapuncher714.zombieapocalypse.ApocalypseManager;
+import io.github.bananapuncher714.zombieapocalypse.objects.Apocalypse;
 
 public class ZombieCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand( CommandSender sender, Command command, String label, String[] args ) {
-		if ( args.length == 0 ) {
+		if ( args.length > 0 ) {
+			if ( args[ 0 ].equalsIgnoreCase( "start" ) ) {
+				start( sender, args );
+			} else if ( args[ 0 ].equalsIgnoreCase( "stop" ) ) {
+				stop( sender, args );
+			}
+		} else {
 			showHelp( sender );
 		}
 		return false;
@@ -16,5 +29,67 @@ public class ZombieCommand implements CommandExecutor {
 
 	private void showHelp( CommandSender sender ) {
 		sender.sendMessage( "U n00b" );
+	}
+
+	private void start( CommandSender sender, String[] args ) {
+		List< Apocalypse > starts = new ArrayList< Apocalypse >();
+		if ( args.length > 1 ) {
+			Apocalypse apocalypse = ApocalypseManager.getInstance().getApocalypse( args[ 1 ] );
+			if ( apocalypse != null ) {
+				starts.add( apocalypse );
+			}
+		} else {
+			if ( !( sender instanceof Player ) ) {
+				sender.sendMessage( "Apocalypse name required for stuff!" );
+				return;
+			} else {
+				Player player = ( Player ) sender;
+				for ( Apocalypse apocalypse : ApocalypseManager.getInstance().getApocalypses() ) {
+					if ( apocalypse.getWorld() == player.getWorld() ) {
+						starts.add( apocalypse );
+					}
+				}
+			}
+		}
+		
+		sender.sendMessage( "Starting apocalypses..." );
+		for ( Apocalypse apocalypse : starts ) {
+			if ( !apocalypse.isRunning() ) {
+				apocalypse.start();
+				sender.sendMessage( "Started apocalypse '" + apocalypse.getId() + "'" );
+			}
+		}
+		sender.sendMessage( "Done starting apocalypses!" );
+	}
+	
+	private void stop( CommandSender sender, String[] args ) {
+		List< Apocalypse > starts = new ArrayList< Apocalypse >();
+		if ( args.length > 1 ) {
+			Apocalypse apocalypse = ApocalypseManager.getInstance().getApocalypse( args[ 1 ] );
+			if ( apocalypse != null ) {
+				starts.add( apocalypse );
+			}
+		} else {
+			if ( !( sender instanceof Player ) ) {
+				sender.sendMessage( "Apocalypse name required for stuff!" );
+				return;
+			} else {
+				Player player = ( Player ) sender;
+				for ( Apocalypse apocalypse : ApocalypseManager.getInstance().getApocalypses() ) {
+					if ( apocalypse.getWorld() == player.getWorld() ) {
+						starts.add( apocalypse );
+					}
+				}
+			}
+		}
+		
+		sender.sendMessage( "Stopped apocalypses..." );
+		for ( Apocalypse apocalypse : starts ) {
+			if ( apocalypse.isRunning() ) {
+				apocalypse.stop( false );
+				sender.sendMessage( "Stopped apocalypse '" + apocalypse.getId() + "'" );
+			}
+		}
+		sender.sendMessage( "Done Stopped apocalypses!" );
 	}
 }
