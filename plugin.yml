@@ -6,6 +6,7 @@ description: Adds cool stuff
 softdepend:
 - "MVdWPlaceholderAPI"
 - "PlaceholderAPI"
+- "Cartographer"
 commands:
   zombieapocalypse:
     description: displays information about the Zombie Apocalypse plugin

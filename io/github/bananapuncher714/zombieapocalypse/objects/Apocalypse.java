@@ -287,6 +287,10 @@ public class Apocalypse {
 		}
 	}
 
+	public Set< UUID > getMobs() {
+		return monsters.keySet();
+	}
+	
 	public boolean isRunning() {
 		return isRunning;
 	}

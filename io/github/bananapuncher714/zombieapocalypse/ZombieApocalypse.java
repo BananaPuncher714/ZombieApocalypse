@@ -17,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.bananapuncher714.zombieapocalypse.commands.ZombieCommand;
 import io.github.bananapuncher714.zombieapocalypse.commands.ZombieTabCompleter;
+import io.github.bananapuncher714.zombieapocalypse.dependencies.CartographerAddon;
 import io.github.bananapuncher714.zombieapocalypse.dependencies.ClipsPlaceholder;
 import io.github.bananapuncher714.zombieapocalypse.dependencies.MvDWPlaceholder;
 import io.github.bananapuncher714.zombieapocalypse.dependencies.ZombieApocalypseExpansion;
@@ -43,6 +44,10 @@ public class ZombieApocalypse extends JavaPlugin {
 
 		LOGGER = getLogger();
 
+		if ( Bukkit.getPluginManager().getPlugin( "Cartographer" ) != null ) {
+			CartographerAddon.init();
+		}
+		
 		placeholderAPI = Bukkit.getPluginManager().getPlugin( "PlaceholderAPI" ) != null;
 		if ( placeholderAPI ) {
 			getLogger().info( "Registering placeholders" );
