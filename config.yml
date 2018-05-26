@@ -25,7 +25,7 @@ messages:
     invalid-reward-set: "&c'%0' is not a valid RewardSet!"
   notifications:
     started-apocalypse: "&1[&9ZombieApocalypse&1]&c&lThe sky darkens and you hear sounds coming from the ground..."
-    completed-apocalypse: "&1[&9ZombieApocalypse&1]&aYou have successfully survived the onslaught!" 
+    completed-apocalypse: "&1[&9ZombieApocalypse&1]&aYou have successfully defeated the onslaught!" 
     not-enough-players: "&1[&9ZombieApocalypse&1]&cThe hordes leave due to lack of competition..."   
     win-stuff: "&1[&9ZombieApocalypse&1]&bYou have won glorious loot!"
     lost-stuff: "&1[&9ZombieApocalypse&1]&cYou have failed to defeat the onslaught."

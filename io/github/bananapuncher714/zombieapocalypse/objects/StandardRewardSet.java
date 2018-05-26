@@ -1,5 +1,6 @@
 package io.github.bananapuncher714.zombieapocalypse.objects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.entity.Player;
@@ -14,7 +15,11 @@ public class StandardRewardSet extends RewardSet {
 	
 	@Override
 	public List< ItemStack > getRewards( Player player, double percentKilled, Apocalypse apocalypse ) {
-		return items;
+		List< ItemStack > copy = new ArrayList< ItemStack >();
+		for ( ItemStack item : items ) {
+			copy.add( item.clone() );
+		}
+		return copy;
 	}
 
 	public List< ItemStack > getItems() {

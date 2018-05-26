@@ -4,11 +4,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.zombieapocalypse.objects.Apocalypse;
 import io.github.bananapuncher714.zombieapocalypse.objects.RewardSet;
 import io.github.bananapuncher714.zombieapocalypse.objects.SpawnSet;
+import io.github.bananapuncher714.zombieapocalypse.objects.StandardRewardSet;
 
 public class ApocalypseManager {
 	private static ApocalypseManager instance;
@@ -64,6 +66,16 @@ public class ApocalypseManager {
 	
 	public SpawnSet getSpawnSet( String id ) {
 		return spawns.get( id );
+	}
+	
+	protected void saveRewardSets( FileConfiguration config ) {
+		for ( String id : rewards.keySet() ) {
+			RewardSet set = rewards.get( id );
+			if ( set instanceof StandardRewardSet ) {
+				StandardRewardSet srs = ( StandardRewardSet ) set;
+				config.set( "standard-rewards." + id, srs.getItems() );
+			}
+		}
 	}
 	
 	public static ApocalypseManager getInstance() {
