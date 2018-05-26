@@ -13,6 +13,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.bananapuncher714.zombieapocalypse.objects.Apocalypse;
+import io.github.bananapuncher714.zombieapocalypse.objects.Apocalypse.EndState;
+import io.github.bananapuncher714.zombieapocalypse.objects.BuildAPocalypse;
 import io.github.bananapuncher714.zombieapocalypse.objects.RewardSet;
 import io.github.bananapuncher714.zombieapocalypse.objects.SpawnSet;
 import io.github.bananapuncher714.zombieapocalypse.util.SpawnUtil;
@@ -21,7 +23,7 @@ public class DemoStarter {
 	
 	public static void init() {
 		Apocalypse apocalypse = new Apocalypse( "DemoApocalypse", Bukkit.getWorld( "world" ) );
-		apocalypse.setChange( 1 );
+		apocalypse.setChance( 1 );
 		
 		apocalypse.addSpawnSet( new SpawnSet() {
 			@Override
@@ -50,7 +52,16 @@ public class DemoStarter {
 			}
 		}, 1 );
 		
+		apocalypse.setEndState( EndState.KILL_REQUIRED );
+		
 		ApocalypseManager.getInstance().registerApocalypse( apocalypse );
 	}
 
+	public static void something() {
+		Apocalypse apocalypse = new BuildAPocalypse( "BuildAPocalypse", Bukkit.getWorld( "world" ) )
+				.atNight()
+				.thatsNotTooShort()
+				.thatAlwaysHappens()
+				.givenADecentTry();
+	}
 }

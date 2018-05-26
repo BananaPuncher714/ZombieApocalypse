@@ -30,6 +30,7 @@ public class Apocalypse {
 	int timeStart = 12567, timeEnd = 22917; // The time in ticks of start and stop, 0-24000
 	double possibility = .2; // Chance of this occuring each day when it is timeStart
 	double killPercentRequired = .5; // How many mobs must be killed to win?
+	EndState endOnFinish = EndState.END_TIME;
 	int playersRequired = 1;
 	Set< UUID > participants = new HashSet< UUID >(); // Who's playing; Only useful when apocalypse is running
 	Map< SpawnSet, Integer > spawns = new HashMap< SpawnSet, Integer >(); // The different spawnSets to spawn mobs
@@ -42,9 +43,10 @@ public class Apocalypse {
 		this.id = id.replaceAll( "\\s+", "" );
 	}
 
-	public void setStartAndStop( int start, int stop ) {
+	public Apocalypse setStartAndStop( int start, int stop ) {
 		timeStart = start % 24000;
 		timeEnd = stop % 24000;
+		return this;
 	}
 
 	public World getWorld() {
@@ -59,12 +61,22 @@ public class Apocalypse {
 		return timeEnd;
 	}
 
+	public EndState getEndState() {
+		return endOnFinish;
+	}
+	
+	public Apocalypse setEndState( EndState state ) {
+		endOnFinish = state;
+		return this;
+	}
+	
 	public double getChance() {
 		return possibility;
 	}
 
-	public void setChange( double chance ) {
+	public Apocalypse setChance( double chance ) {
 		possibility = Math.max( 0, chance );
+		return this;
 	}
 
 	public String getId() {
@@ -75,20 +87,23 @@ public class Apocalypse {
 		return killPercentRequired;
 	}
 
-	public void setKillPercentRequired( double percent ) {
+	public Apocalypse setKillPercentRequired( double percent ) {
 		killPercentRequired = percent;
+		return this;
 	}
 
-	public void removePlayer( Player player ) {
+	public Apocalypse removePlayer( Player player ) {
 		participants.remove( player.getUniqueId() );
+		return this;
 	}
 
 	public boolean isParticipant( Player player ) {
 		return participants.contains( player.getUniqueId() );
 	}
 	
-	public void addSpawnSet( SpawnSet set, int weight ) {
+	public Apocalypse addSpawnSet( SpawnSet set, int weight ) {
 		spawns.put( set, weight );
+		return this;
 	}
 	
 	public boolean removeSpawnSet( SpawnSet set ) {
@@ -99,8 +114,9 @@ public class Apocalypse {
 		return contains;
 	}
 
-	public void addRewardSet( RewardSet set, int weight ) {
+	public Apocalypse addRewardSet( RewardSet set, int weight ) {
 		rewards.put( set, weight );
+		return this;
 	}
 	
 	public boolean removeRewardSet( RewardSet set ) {
@@ -135,6 +151,15 @@ public class Apocalypse {
 		if ( participants.size() < playersRequired ) {
 			stop( false );
 			return;
+		}
+		if ( endOnFinish == EndState.KILL_ALL ) {
+			if ( getPercentCleared() == 1 ) {
+				stop( false );
+			}
+		} else if ( endOnFinish == EndState.KILL_REQUIRED ) {
+			if ( getPercentCleared() >= killPercentRequired ) {
+				stop( false );
+			}
 		}
 	}
 
@@ -175,7 +200,6 @@ public class Apocalypse {
 	private void spawnMobs( SpawnSet set, Player player ) {
 		Set< Entity > mobsSpawned = set.spawn( player );
 		for ( Entity mob : mobsSpawned ) {
-			System.out.println( mob );
 			monsters.put( mob.getUniqueId(), true );
 		}
 		System.out.println( monsters.size() );
@@ -193,17 +217,7 @@ public class Apocalypse {
 	}
 
 	public double getPercentCleared() {
-		int amountOfMobsLeft = 0;
-		for ( UUID monster : monsters.keySet() ) {
-			Entity mob = Bukkit.getEntity( monster );
-			if ( !monsters.get( monster ) ) {
-				amountOfMobsLeft++;
-			}
-			if ( mob != null ) {
-				mob.remove();
-			}
-		}
-		return amountOfMobsLeft / ( double ) monsters.size();
+		return getAmountCleared() / ( double ) monsters.size();
 	}
 	
 	public int getAmountCleared() {
@@ -258,5 +272,9 @@ public class Apocalypse {
 		if ( monsters.containsKey( entity.getUniqueId() ) ) {
 			monsters.remove( entity.getUniqueId() );
 		}
+	}
+	
+	public enum EndState {
+		KILL_ALL, KILL_REQUIRED, END_TIME;
 	}
 }

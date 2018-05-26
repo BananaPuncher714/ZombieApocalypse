@@ -26,6 +26,9 @@ public class TimeWatcher {
 		for ( Apocalypse apocalypse : manager.getApocalypses() ) {
 			long worldTime = apocalypse.getWorld().getTime() % 24000;
 			if ( worldTime > apocalypse.getStart() && worldTime <= apocalypse.getStart() + 20 ) {
+				if ( apocalypse.isRunning() ) {
+					continue;
+				}
 				if ( rand.nextDouble() > apocalypse.getChance() ) {
 					continue;
 				}
