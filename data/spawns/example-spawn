@@ -1,0 +1,8 @@
+entity-type: ZOMBIE
+name: "Apocalypse Zombie"
+health: 40
+glowing: true
+spawn:
+  amount: 10
+  min-range: 10
+  max-range: 20

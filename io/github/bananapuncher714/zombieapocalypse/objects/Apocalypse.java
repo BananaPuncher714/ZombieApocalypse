@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -41,6 +42,11 @@ public class Apocalypse {
 	public Apocalypse( String id, World world ) {
 		this.world = world;
 		this.id = id.replaceAll( "\\s+", "" );
+	}
+	
+	public Apocalypse( FileConfiguration config ) {
+		id = config.getName().replaceFirst( "\\.yml$", "" );
+		world = Bukkit.getWorld( config.getString( "world" ) );
 	}
 
 	public Apocalypse setStartAndStop( int start, int stop ) {
@@ -194,6 +200,7 @@ public class Apocalypse {
 				giveRewards( reward, player, percentCleared );
 			}
 		} else {
+			
 		}
 	}
 

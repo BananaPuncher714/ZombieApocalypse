@@ -1,8 +1,13 @@
+world: "world"
 time:
   start: 12567
   end: 22917
   possibility: .2
 kill-percent-required: .5
 players-required: 1
+# Valid end states are: KILL_ALL, KILL_REQUIRED and END_TIME
+end-state: KILL_ALL
 rewards:
-  
+  - "example-reward:1"
+spawns:
+  - "example-spawn:1"

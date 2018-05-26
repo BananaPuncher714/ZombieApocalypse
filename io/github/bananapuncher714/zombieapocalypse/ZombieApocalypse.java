@@ -1,6 +1,7 @@
 package io.github.bananapuncher714.zombieapocalypse;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -57,6 +58,6 @@ public class ZombieApocalypse extends JavaPlugin {
 		if ( mvdwPlaceholderAPI ) {
 			result = MvDWPlaceholder.parse( player, result );
 		}
-		return result;
+		return ChatColor.translateAlternateColorCodes( '&', result );
 	}
 }
