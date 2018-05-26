@@ -17,4 +17,7 @@ public class StandardRewardSet extends RewardSet {
 		return items;
 	}
 
+	public List< ItemStack > getItems() {
+		return items;
+	}
 }

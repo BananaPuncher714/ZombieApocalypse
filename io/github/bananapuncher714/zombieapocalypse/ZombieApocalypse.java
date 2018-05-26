@@ -19,6 +19,8 @@ import io.github.bananapuncher714.zombieapocalypse.dependencies.MvDWPlaceholder;
 import io.github.bananapuncher714.zombieapocalypse.dependencies.ZombieApocalypseExpansion;
 import io.github.bananapuncher714.zombieapocalypse.listeners.MobListener;
 import io.github.bananapuncher714.zombieapocalypse.listeners.PlayerListener;
+import io.github.bananapuncher714.zombieapocalypse.ngui.ClickListener;
+import io.github.bananapuncher714.zombieapocalypse.ngui.NGui;
 import io.github.bananapuncher714.zombieapocalypse.util.ApocalypseDeserializer;
 import io.github.bananapuncher714.zombieapocalypse.util.FileUtil;
 
@@ -70,6 +72,7 @@ public class ZombieApocalypse extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+		NGui.disable();
 		ApocalypseManager.getInstance().disable();
 	}
 	
@@ -87,6 +90,8 @@ public class ZombieApocalypse extends JavaPlugin {
 	private void registerListeners() {
 		Bukkit.getPluginManager().registerEvents( new PlayerListener(), this );
 		Bukkit.getPluginManager().registerEvents( new MobListener(), this );
+		
+		Bukkit.getPluginManager().registerEvents( new ClickListener(), this );
 	}
 	
 	public static String parse( CommandSender player, String input ) {

@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
@@ -192,6 +193,7 @@ public class Apocalypse {
 		for ( UUID uuid : participants ) {
 			Player player = Bukkit.getPlayer( uuid );
 			player.sendMessage( ZombieApocalypse.parse( "notifications.started-apocalypse", player ) );
+			player.playSound( player.getLocation(), Sound.AMBIENT_CAVE, 1, 1 );
 			spawnMobs( set, player );
 		}
 	}
@@ -252,12 +254,14 @@ public class Apocalypse {
 			for ( UUID uuid : participants ) {
 				Player player = Bukkit.getPlayer( uuid );
 				player.sendMessage( ZombieApocalypse.parse( "notifications.win-stuff", player ) );
+				player.playSound( player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1 );
 				giveRewards( reward, player, percentCleared );
 			}
 		} else {
 			for ( UUID uuid : participants ) {
 				Player player = Bukkit.getPlayer( uuid );
 				player.sendMessage( ZombieApocalypse.parse( "notifications.lost-stuff", player ) );
+				player.playSound( player.getLocation(), Sound.ENTITY_ENDERMEN_DEATH, 1, 1 );
 			}
 		}
 	}
@@ -337,6 +341,10 @@ public class Apocalypse {
 		Entity entity = event.getEntity();
 		if ( monsters.containsKey( entity.getUniqueId() ) ) {
 			monsters.put( event.getEntity().getUniqueId(), false );
+			for ( UUID uuid : participants ) {
+				Player player = Bukkit.getPlayer( uuid );
+				player.playSound( entity.getLocation(), Sound.BLOCK_NOTE_PLING, 1, ( float ) getPercentCleared() + 1f );
+			}
 			update();
 		}
 	}
