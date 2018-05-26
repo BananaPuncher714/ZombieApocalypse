@@ -20,6 +20,8 @@ public class ZombieCommand implements CommandExecutor {
 				start( sender, args );
 			} else if ( args[ 0 ].equalsIgnoreCase( "stop" ) ) {
 				stop( sender, args );
+			} else if ( args[ 0 ].equalsIgnoreCase( "end" ) ) {
+				end( sender, args );
 			}
 		} else {
 			showHelp( sender );
@@ -37,6 +39,9 @@ public class ZombieCommand implements CommandExecutor {
 			Apocalypse apocalypse = ApocalypseManager.getInstance().getApocalypse( args[ 1 ] );
 			if ( apocalypse != null ) {
 				starts.add( apocalypse );
+			} else {
+				sender.sendMessage( "Invalid apocalypse!" );
+				return;
 			}
 		} else {
 			if ( !( sender instanceof Player ) ) {
@@ -68,6 +73,9 @@ public class ZombieCommand implements CommandExecutor {
 			Apocalypse apocalypse = ApocalypseManager.getInstance().getApocalypse( args[ 1 ] );
 			if ( apocalypse != null ) {
 				starts.add( apocalypse );
+			} else {
+				sender.sendMessage( "Invalid apocalypse!" );
+				return;
 			}
 		} else {
 			if ( !( sender instanceof Player ) ) {
@@ -86,10 +94,24 @@ public class ZombieCommand implements CommandExecutor {
 		sender.sendMessage( "Stopped apocalypses..." );
 		for ( Apocalypse apocalypse : starts ) {
 			if ( apocalypse.isRunning() ) {
-				apocalypse.stop( false );
-				sender.sendMessage( "Stopped apocalypse '" + apocalypse.getId() + "'" );
+				apocalypse.stop( true );
+				sender.sendMessage( "Stopped apocalypse '" + apocalypse.getId() + "' naturally" );
 			}
 		}
 		sender.sendMessage( "Done Stopped apocalypses!" );
+	}
+	
+	private void end( CommandSender sender, String[] args ) {
+		if ( args.length < 2 ) {
+			sender.sendMessage( "Must provide apocalypse name!" );
+			return;
+		}
+		Apocalypse apocalypse = ApocalypseManager.getInstance().getApocalypse( args[ 1 ] );
+		if ( apocalypse == null ) {
+			sender.sendMessage( "Invalid apocalypse!" );
+			return;
+		}
+		apocalypse.stop( false );
+		sender.sendMessage( "Stopped '" + apocalypse + "' forcefully" );
 	}
 }

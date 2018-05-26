@@ -30,6 +30,7 @@ public class Apocalypse {
 	int timeStart = 12567, timeEnd = 22917; // The time in ticks of start and stop, 0-24000
 	double possibility = .2; // Chance of this occuring each day when it is timeStart
 	double killPercentRequired = .5; // How many mobs must be killed to win?
+	int playersRequired = 1;
 	Set< UUID > participants = new HashSet< UUID >(); // Who's playing; Only useful when apocalypse is running
 	Map< SpawnSet, Integer > spawns = new HashMap< SpawnSet, Integer >(); // The different spawnSets to spawn mobs
 	Map< RewardSet, Integer > rewards = new HashMap< RewardSet, Integer >(); // The rewards for winning, one will be chosen at random
@@ -131,7 +132,7 @@ public class Apocalypse {
 	}
 
 	private void update() {
-		if ( participants.isEmpty() ) {
+		if ( participants.size() < playersRequired ) {
 			stop( false );
 			return;
 		}
@@ -141,24 +142,20 @@ public class Apocalypse {
 		isRunning = false;
 		// DEBUG
 		System.out.println( "STOPPED APOCALYPSE " + id );
-		int amountOfMobsLeft = 0;
 		for ( UUID monster : monsters.keySet() ) {
 			Entity mob = Bukkit.getEntity( monster );
-			if ( !monsters.get( monster ) ) {
-				amountOfMobsLeft++;
-			}
 			if ( mob != null ) {
 				mob.remove();
 			}
 		}
-		double percentCleared = amountOfMobsLeft / ( double ) monsters.size();
+		double percentCleared = getPercentCleared();
 		monsters.clear();
 		// See if the apocalypse stopped because everyone quit or something
 		if ( cancel ) {
 			return;
 		}
 		
-		if ( participants.isEmpty() ) {
+		if ( participants.size() < playersRequired ) {
 			// booooo to the losers
 			return;
 		}
@@ -195,6 +192,34 @@ public class Apocalypse {
 		return isRunning;
 	}
 
+	public double getPercentCleared() {
+		int amountOfMobsLeft = 0;
+		for ( UUID monster : monsters.keySet() ) {
+			Entity mob = Bukkit.getEntity( monster );
+			if ( !monsters.get( monster ) ) {
+				amountOfMobsLeft++;
+			}
+			if ( mob != null ) {
+				mob.remove();
+			}
+		}
+		return amountOfMobsLeft / ( double ) monsters.size();
+	}
+	
+	public int getAmountCleared() {
+		int i = 0;
+		for ( boolean value : monsters.values() ) {
+			if ( !value ) {
+				i++;
+			}
+		}
+		return i;
+	}
+	
+	public int getAmountTotal() {
+		return monsters.size();
+	}
+	
 	// Run things depending on events
 	public void onPlayerDeathEvent( PlayerDeathEvent event ) {
 		participants.remove( event.getEntity().getUniqueId() );
@@ -233,5 +258,5 @@ public class Apocalypse {
 		if ( monsters.containsKey( entity.getUniqueId() ) ) {
 			monsters.remove( entity.getUniqueId() );
 		}
-	} 
+	}
 }
