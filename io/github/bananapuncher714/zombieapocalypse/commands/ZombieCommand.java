@@ -3,6 +3,7 @@ package io.github.bananapuncher714.zombieapocalypse.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -32,6 +33,8 @@ public class ZombieCommand implements CommandExecutor {
 				save( sender );
 			} else if ( args[ 0 ].equalsIgnoreCase( "open" ) ) {
 				open( sender, args );
+			} else if ( args[ 0 ].equalsIgnoreCase( "help" ) ) {
+				showHelp( sender );
 			}
 		} else {
 			showHelp( sender );
@@ -40,7 +43,20 @@ public class ZombieCommand implements CommandExecutor {
 	}
 
 	private void showHelp( CommandSender sender ) {
-		sender.sendMessage( "U n00b" );
+		if ( !ZombiePerms.canStartAndStop( sender ) ) {
+			sender.sendMessage( ZombieApocalypse.parse( "command.no-permission", sender ) );
+			return;
+		}
+		sender.sendMessage( ChatColor.GREEN + "=== Zombie Apocalypse ===" );
+		sender.sendMessage( ChatColor.AQUA + "/zombieapocalypse stop [id] " + ChatColor.YELLOW + "- Stops the given apocalypse naturally" );
+		sender.sendMessage( ChatColor.AQUA + "/zombieapocalypse start [id] " + ChatColor.YELLOW + "- Starts the given apocalypse" );
+		sender.sendMessage( ChatColor.AQUA + "/zombieapocalypse end <id> " + ChatColor.YELLOW + "- Stops the given apocalypse forcefully" );
+		sender.sendMessage( ChatColor.AQUA + "/zombieapocalypse help " + ChatColor.YELLOW + "- Shows this message" );
+		if ( !ZombiePerms.isAdmin( sender ) ) {
+			return;
+		}
+		sender.sendMessage( ChatColor.AQUA + "/zombieapocalypse saveexamples " + ChatColor.YELLOW + "- Saves the default templates for making custom content" );
+		sender.sendMessage( ChatColor.AQUA + "/zombieapocalypse open <reward-set-id>" + ChatColor.YELLOW + "- Edit a given standard reward set" );
 	}
 
 	private void start( CommandSender sender, String[] args ) {

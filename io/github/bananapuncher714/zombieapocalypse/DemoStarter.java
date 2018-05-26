@@ -19,6 +19,11 @@ import io.github.bananapuncher714.zombieapocalypse.objects.RewardSet;
 import io.github.bananapuncher714.zombieapocalypse.objects.SpawnSet;
 import io.github.bananapuncher714.zombieapocalypse.util.SpawnUtil;
 
+/**
+ * Demo for how to integrate or create addons for this plugin
+ * 
+ * @author BananaPuncher714
+ */
 public class DemoStarter {
 	
 	public static void init() {
@@ -57,6 +62,9 @@ public class DemoStarter {
 		ApocalypseManager.getInstance().registerApocalypse( apocalypse );
 	}
 
+	/**
+	 * Something fun
+	 */
 	public static void something() {
 		Apocalypse apocalypse = new BuildAPocalypse( "BuildAPocalypse", Bukkit.getWorld( "world" ) )
 				.atNight()

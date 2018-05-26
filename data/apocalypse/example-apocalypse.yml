@@ -1,13 +1,23 @@
+# The world where the apocalypse will take place
 world: "world"
+# The times when it starts and stops. Ranges from 0-23999
 time:
   start: 12567
   end: 22917
+  # The possibility of an apocalypse occuring
   possibility: .2
+# The percentage of mobs that must be killed to win the battle
 kill-percent-required: .5
+# The minimum amount of players required to continue the onslaught
 players-required: 1
 # Valid end states are: KILL_ALL, KILL_REQUIRED and END_TIME
+# KILL_ALL - Must kill every mob that spawns to end the apocalypse
+# KILL_REQUIRED - Must kill the allotted percent to end the apocalypse
+# END_TIME - Only stops when it is the time end
 end-state: KILL_ALL
+# Reward sets with a weight. Higher weights indicate a greater chance of being chosen. Use the ids provided in this format: "<id>:<weight>"
 rewards:
   - "example-reward:1"
+# the different spawns possible. The format is just like the rewards format.
 spawns:
   - "example-spawn:1"

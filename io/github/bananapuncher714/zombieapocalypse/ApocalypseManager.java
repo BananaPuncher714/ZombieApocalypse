@@ -29,7 +29,7 @@ public class ApocalypseManager {
 	}
 	
 	public void registerApocalypse( Apocalypse apocalypse ) {
-		System.out.println( "Registered Apocalypse '" + apocalypse.getId() + "'" );
+		ZombieApocalypse.getConsoleLogger().info( "Registered Apocalypse '" + apocalypse.getId() + "'" );
 		crises.put( apocalypse.getId(), apocalypse );
 	}
 	
@@ -53,7 +53,7 @@ public class ApocalypseManager {
 	}
 
 	public void registerRewardSet( String id, RewardSet rewards ) {
-		System.out.println( "Registered RewardSet '" + id + "'" );
+		ZombieApocalypse.getConsoleLogger().info( "Registered RewardSet '" + id + "'" );
 		this.rewards.put( id, rewards );
 	}
 	
@@ -62,7 +62,7 @@ public class ApocalypseManager {
 	}
 	
 	public void registerSpawnSet( String id, SpawnSet spawn ) {
-		System.out.println( "Registered SpawnSet '" + id + "'" );
+		ZombieApocalypse.getConsoleLogger().info( "Registered SpawnSet '" + id + "'" );
 		spawns.put( id, spawn );
 	}
 	

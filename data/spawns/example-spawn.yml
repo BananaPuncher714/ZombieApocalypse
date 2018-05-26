@@ -1,7 +1,12 @@
+# The entity type of this spawnset
 entity-type: ZOMBIE
+# The name of the zombie, remove to give the mob no name
 name: "Apocalypse Zombie"
+# The health of the mob
 health: 40
+# Whether or not they glow
 glowing: true
+# The amount, and ranges in which they spawn around each player
 spawn:
   amount: 10
   min-range: 10
