@@ -39,7 +39,7 @@ public class ZombieCommand implements CommandExecutor {
 
 	private void start( CommandSender sender, String[] args ) {
 		if ( !ZombiePerms.isAdmin( sender ) ) {
-			sender.sendMessage( "You do not have permission to run this command!" );
+			sender.sendMessage( ZombieApocalypse.parse( "command.no-permission", sender ) );
 			return;
 		}
 		List< Apocalypse > starts = new ArrayList< Apocalypse >();
@@ -48,12 +48,12 @@ public class ZombieCommand implements CommandExecutor {
 			if ( apocalypse != null ) {
 				starts.add( apocalypse );
 			} else {
-				sender.sendMessage( "Invalid apocalypse!" );
+				sender.sendMessage( ZombieApocalypse.parse( "command.invalid-apocalypse", sender ) );
 				return;
 			}
 		} else {
 			if ( !( sender instanceof Player ) ) {
-				sender.sendMessage( "Apocalypse name required for stuff!" );
+				sender.sendMessage( ZombieApocalypse.parse( "command.apocalypse-required", sender ) );
 				return;
 			} else {
 				Player player = ( Player ) sender;
@@ -65,19 +65,24 @@ public class ZombieCommand implements CommandExecutor {
 			}
 		}
 		
-		sender.sendMessage( "Starting apocalypses..." );
+		if ( starts.isEmpty() ) {
+			sender.sendMessage( ZombieApocalypse.parse( "command.no-apocalypses-started", sender ) );
+			return;
+		}
+		
+		sender.sendMessage( ZombieApocalypse.parse( "command.starting-apocalypses", sender ) );
 		for ( Apocalypse apocalypse : starts ) {
 			if ( !apocalypse.isRunning() ) {
 				apocalypse.start();
-				sender.sendMessage( "Started apocalypse '" + apocalypse.getId() + "'" );
+				sender.sendMessage( ZombieApocalypse.parse( "command.started-apocalypse", sender, apocalypse.getId() ) );
 			}
 		}
-		sender.sendMessage( "Done starting apocalypses!" );
+		sender.sendMessage( ZombieApocalypse.parse( "command.done-starting-apocalypses", sender ) );
 	}
 	
 	private void stop( CommandSender sender, String[] args ) {
 		if ( !ZombiePerms.isAdmin( sender ) ) {
-			sender.sendMessage( "You do not have permission to run this command!" );
+			sender.sendMessage( ZombieApocalypse.parse( "command.no-permission", sender ) );
 			return;
 		}
 		List< Apocalypse > starts = new ArrayList< Apocalypse >();
@@ -86,12 +91,12 @@ public class ZombieCommand implements CommandExecutor {
 			if ( apocalypse != null ) {
 				starts.add( apocalypse );
 			} else {
-				sender.sendMessage( "Invalid apocalypse!" );
+				sender.sendMessage( ZombieApocalypse.parse( "command.invalid-apocalypse", sender ) );
 				return;
 			}
 		} else {
 			if ( !( sender instanceof Player ) ) {
-				sender.sendMessage( "Apocalypse name required for stuff!" );
+				sender.sendMessage( ZombieApocalypse.parse( "command.apocalypse-required", sender ) );
 				return;
 			} else {
 				Player player = ( Player ) sender;
@@ -103,39 +108,45 @@ public class ZombieCommand implements CommandExecutor {
 			}
 		}
 		
-		sender.sendMessage( "Stopped apocalypses..." );
+		if ( starts.isEmpty() ) {
+			sender.sendMessage( ZombieApocalypse.parse( "command.no-apocalypses-stopped", sender ) );
+			return;
+		}
+		
+		sender.sendMessage( ZombieApocalypse.parse( "command.stopping-apocalypses", sender ) );
 		for ( Apocalypse apocalypse : starts ) {
 			if ( apocalypse.isRunning() ) {
 				apocalypse.stop( true );
-				sender.sendMessage( "Stopped apocalypse '" + apocalypse.getId() + "' naturally" );
+				sender.sendMessage( ZombieApocalypse.parse( "command.stopped-apocalypse-naturally", sender, apocalypse.getId() ) );
 			}
 		}
-		sender.sendMessage( "Done Stopped apocalypses!" );
+		sender.sendMessage( ZombieApocalypse.parse( "command.done-stopping-apocalypses", sender ) );
 	}
 	
 	private void end( CommandSender sender, String[] args ) {
 		if ( !ZombiePerms.isAdmin( sender ) ) {
-			sender.sendMessage( "You do not have permission to run this command!" );
+			sender.sendMessage( ZombieApocalypse.parse( "command.no-permission", sender ) );
 			return;
 		}
 		if ( args.length < 2 ) {
-			sender.sendMessage( "Must provide apocalypse name!" );
+			sender.sendMessage( ZombieApocalypse.parse( "command.apocalypse-required", sender ) );
 			return;
 		}
 		Apocalypse apocalypse = ApocalypseManager.getInstance().getApocalypse( args[ 1 ] );
 		if ( apocalypse == null ) {
-			sender.sendMessage( "Invalid apocalypse!" );
+			sender.sendMessage( ZombieApocalypse.parse( "command.invalid-apocalypse", sender ) );
 			return;
 		}
 		apocalypse.stop( false );
-		sender.sendMessage( "Stopped '" + apocalypse + "' forcefully" );
+		sender.sendMessage( ZombieApocalypse.parse( "stopped-apocalypse-forcefully", sender ) );
 	}
 	
 	private void save( CommandSender sender ) {
 		if ( !ZombiePerms.isAdmin( sender ) ) {
-			sender.sendMessage( "You do not have permission to run this command!" );
+			sender.sendMessage( ZombieApocalypse.parse( "command.no-permission", sender ) );
 			return;
 		}
 		ZombieApocalypse.getPlugin( ZombieApocalypse.class ).saveResources();
+		sender.sendMessage( ZombieApocalypse.parse( "command.saved-examples", sender ) );
 	}
 }

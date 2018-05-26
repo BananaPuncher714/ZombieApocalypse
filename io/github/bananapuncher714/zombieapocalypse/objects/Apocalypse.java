@@ -62,7 +62,7 @@ public class Apocalypse {
 			String[] data = string.split( ":" );
 			RewardSet set = ApocalypseManager.getInstance().getRewardSet( data[ 0 ] );
 			if ( set == null ) {
-				System.out.println( "Invalid RewardSet! '" + data[ 0 ] + "'"  );
+				ZombieApocalypse.getConsoleLogger().warning( "Invalid RewardSet! '" + data[ 0 ] + "'" );
 			}
 			int weight = 1;
 			if ( data.length == 2 ) {
@@ -78,7 +78,7 @@ public class Apocalypse {
 			String[] data = string.split( ":" );
 			SpawnSet set = ApocalypseManager.getInstance().getSpawnSet( data[ 0 ] );
 			if ( set == null ) {
-				System.out.println( "Invalid SpawnSet! '" + data[ 0 ] + "'"  );
+				ZombieApocalypse.getConsoleLogger().warning( "Invalid SpawnSet! '" + data[ 0 ] + "'"  );
 			}
 			int weight = 1;
 			if ( data.length == 2 ) {
@@ -182,32 +182,40 @@ public class Apocalypse {
 			participants.add( player.getUniqueId() );
 		}
 		if ( participants.isEmpty() ) {
-			// FAILED start
+			ZombieApocalypse.getConsoleLogger().warning( "'" + id + "' failed to start!" );
 			return;
 		}
 		isRunning = true;
-		// DEBUG
 
 		SpawnSet set = Util.getRandom( spawns );
 		monsters.clear();
 		for ( UUID uuid : participants ) {
 			Player player = Bukkit.getPlayer( uuid );
+			player.sendMessage( ZombieApocalypse.parse( "notifications.started-apocalypse", player ) );
 			spawnMobs( set, player );
 		}
-		System.out.println( "STARTED APOCALYPSE " + id );
 	}
 
 	private void update() {
 		if ( participants.size() < playersRequired ) {
+			ZombieApocalypse.getConsoleLogger().warning( "No participants left in '" + id + "'. Stopping..." );
 			stop( false );
 			return;
 		}
 		if ( endOnFinish == EndState.KILL_ALL ) {
 			if ( getPercentCleared() == 1 ) {
+				for ( UUID uuid : participants ) {
+					Player player = Bukkit.getPlayer( uuid );
+					player.sendMessage( ZombieApocalypse.parse( "notifications.completed-apocalypse", player ) );
+				}
 				stop( false );
 			}
 		} else if ( endOnFinish == EndState.KILL_REQUIRED ) {
 			if ( getPercentCleared() >= killPercentRequired ) {
+				for ( UUID uuid : participants ) {
+					Player player = Bukkit.getPlayer( uuid );
+					player.sendMessage( ZombieApocalypse.parse( "notifications.completed-apocalypse", player ) );
+				}
 				stop( false );
 			}
 		}
@@ -215,8 +223,7 @@ public class Apocalypse {
 
 	public void stop( boolean cancel ) {
 		isRunning = false;
-		// DEBUG
-		System.out.println( "STOPPED APOCALYPSE " + id );
+		ZombieApocalypse.getConsoleLogger().warning( "Stopped apocalypse '" + id + "'" );
 		for ( UUID monster : monsters.keySet() ) {
 			Entity mob = Bukkit.getEntity( monster );
 			if ( mob != null ) {
@@ -231,7 +238,10 @@ public class Apocalypse {
 		}
 		
 		if ( participants.size() < playersRequired ) {
-			// booooo to the losers
+			for ( UUID uuid : participants ) {
+				Player player = Bukkit.getPlayer( uuid );
+				player.sendMessage( ZombieApocalypse.parse( "notifications.not-enough-players", player ) );
+			}
 			return;
 		}
 
@@ -241,10 +251,14 @@ public class Apocalypse {
 
 			for ( UUID uuid : participants ) {
 				Player player = Bukkit.getPlayer( uuid );
+				player.sendMessage( ZombieApocalypse.parse( "notifications.win-stuff", player ) );
 				giveRewards( reward, player, percentCleared );
 			}
 		} else {
-			
+			for ( UUID uuid : participants ) {
+				Player player = Bukkit.getPlayer( uuid );
+				player.sendMessage( ZombieApocalypse.parse( "notifications.lost-stuff", player ) );
+			}
 		}
 	}
 
@@ -294,6 +308,7 @@ public class Apocalypse {
 	// Run things depending on events
 	public void onPlayerDeathEvent( PlayerDeathEvent event ) {
 		participants.remove( event.getEntity().getUniqueId() );
+		event.getEntity().sendMessage( ZombieApocalypse.parse( "notifications.died", event.getEntity() ) );
 		update();
 	}
 
@@ -304,12 +319,14 @@ public class Apocalypse {
 	public void onPlayerTeleportEvent( PlayerTeleportEvent event ) {
 		if ( event.getTo().getWorld() != world ) {
 			event.setCancelled( true );
+			event.getPlayer().sendMessage( ZombieApocalypse.parse( "notifications.no-tp", event.getPlayer() ) );
 		}
 		update();
 	}
 
 	public void onPlayerChangeWorldEvent( PlayerChangedWorldEvent event ) {
 		participants.remove( event.getPlayer().getUniqueId() );
+		event.getPlayer().sendMessage( ZombieApocalypse.parse( "notifications.escaped", event.getPlayer() ) );
 		update();
 	}
 

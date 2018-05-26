@@ -3,9 +3,12 @@ package io.github.bananapuncher714.zombieapocalypse;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,15 +23,19 @@ import io.github.bananapuncher714.zombieapocalypse.util.ApocalypseDeserializer;
 import io.github.bananapuncher714.zombieapocalypse.util.FileUtil;
 
 public class ZombieApocalypse extends JavaPlugin {
-	public static final int MOB_CAP = 200;
+	public static int MOB_CAP = 200;
 	
+	private static Logger LOGGER;
 	private static boolean placeholderAPI, mvdwPlaceholderAPI;
 	
-	private Map< String, String > messages = new HashMap< String, String >();
+	private static Map< String, String > messages = new HashMap< String, String >();
 	
 	@Override
 	public void onEnable() {
 		saveDefaultConfig();
+		loadConfig();
+		
+		LOGGER = getLogger();
 
 		placeholderAPI = Bukkit.getPluginManager().getPlugin( "PlaceholderAPI" ) != null;
 		if ( placeholderAPI ) {
@@ -45,6 +52,14 @@ public class ZombieApocalypse extends JavaPlugin {
 //		DemoStarter.init();
 		
 		Bukkit.getScheduler().scheduleSyncDelayedTask( this, this::loadFiles, 2 );
+	}
+	
+	private void loadConfig() {
+		FileConfiguration config = getConfig();
+		MOB_CAP = config.getInt( "mob-cap-per-apocalypse" );
+		for ( String string : config.getConfigurationSection( "messages" ).getKeys( true ) ) {
+			messages.put( string, config.getString( "messages." + string ) );
+		}
 	}
 	
 	private void loadFiles() {
@@ -74,14 +89,26 @@ public class ZombieApocalypse extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents( new MobListener(), this );
 	}
 	
-	public static String parse( Player player, String input ) {
+	public static String parse( CommandSender player, String input ) {
 		String result = input;
-		if ( placeholderAPI ) {
-			result = ClipsPlaceholder.parse( player, result );
+		if ( placeholderAPI && player != null && player instanceof Player ) {
+			result = ClipsPlaceholder.parse( ( Player ) player, result );
 		}
-		if ( mvdwPlaceholderAPI ) {
-			result = MvDWPlaceholder.parse( player, result );
+		if ( mvdwPlaceholderAPI && player != null && player instanceof Player  ) {
+			result = MvDWPlaceholder.parse( ( Player ) player, result );
 		}
 		return ChatColor.translateAlternateColorCodes( '&', result );
+	}
+	
+	public static String parse( String key, CommandSender player, String... args ) {
+		String message = parse( player, messages.get( key ) );
+		for ( int i = 0; i < args.length; i++ ) {
+			message = message.replace( "%" + i, args[ i ] );
+		}
+		return message;
+	}
+	
+	public static Logger getConsoleLogger() {
+		return LOGGER;
 	}
 }
