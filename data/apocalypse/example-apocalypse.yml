@@ -16,8 +16,10 @@ players-required: 1
 # END_TIME - Only stops when it is the time end
 end-state: KILL_ALL
 # Reward sets with a weight. Higher weights indicate a greater chance of being chosen. Use the ids provided in this format: "<id>:<weight>"
+reward-amount: 2
 rewards:
   - "example-reward:1"
 # the different spawns possible. The format is just like the rewards format.
+spawn-amount: 2
 spawns:
   - "example-spawn:1"

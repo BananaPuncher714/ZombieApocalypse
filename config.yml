@@ -45,9 +45,9 @@ messages:
     - "&1[&9ZombieApocalypse&1] &c&lThe sky darkens and you hear sounds coming from the ground..."
     - "&1[&9ZombieApocalypse&1] &c&lThe earth shakes and you hear moaning nearby"
     completed-apocalypse:
-    - "&1[&9ZombieApocalypse&1]&a&lThe sounds of the undead slowly fades away!" 
-    - "&1[&9ZombieApocalypse&1]&a&lThe undead flee!"
-    - "&1[&9ZombieApocalypse&1]&a&lYou hear the fanfare of triumph"
+    - "&1[&9ZombieApocalypse&1] &a&lThe sounds of the undead slowly fades away!" 
+    - "&1[&9ZombieApocalypse&1] &a&lThe undead flee!"
+    - "&1[&9ZombieApocalypse&1] &a&lYou hear the fanfare of triumph"
     not-enough-players:
     - "&1[&9ZombieApocalypse&1] &cThe hordes leave due to lack of competition..."
     - "&1[&9ZombieApocalypse&1] &cThe undead appear uninterested in you"
@@ -65,5 +65,5 @@ messages:
     - "&1[&9ZombieApocalypse&1] &cA mysterious force prevents you from teleporting..."
     - "&1[&9ZombieApocalypse&1] &cThe Flying Spaghetti Monster enforces its Noodly Appendage upon you"
     escaped:
-    - "&1[&9ZombieApocalypse&1]&bYou have escaped from the advancing horde!"
-    - "&1[&9ZombieApocalypse&1]&bYou make it out in one piece"
+    - "&1[&9ZombieApocalypse&1] &bYou have escaped from the advancing horde!"
+    - "&1[&9ZombieApocalypse&1] &bYou make it out in one piece"
