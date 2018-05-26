@@ -32,7 +32,6 @@ import io.github.bananapuncher714.zombieapocalypse.util.FileUtil;
 public class ZombieApocalypse extends JavaPlugin {
 	public static int MOB_CAP = 200;
 
-	private static Logger LOGGER;
 	private static boolean placeholderAPI, mvdwPlaceholderAPI;
 
 	private static Map< String, String > messages = new HashMap< String, String >();
@@ -41,8 +40,6 @@ public class ZombieApocalypse extends JavaPlugin {
 	public void onEnable() {
 		saveDefaultConfig();
 		loadConfig();
-
-		LOGGER = getLogger();
 
 		if ( Bukkit.getPluginManager().getPlugin( "Cartographer" ) != null ) {
 			CartographerAddon.init();
@@ -140,6 +137,6 @@ public class ZombieApocalypse extends JavaPlugin {
 	}
 
 	public static Logger getConsoleLogger() {
-		return LOGGER;
+		return ZombieApocalypse.getPlugin( ZombieApocalypse.class ).getLogger();
 	}
 }
