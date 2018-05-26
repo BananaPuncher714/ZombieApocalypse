@@ -46,8 +46,8 @@ public class Apocalypse {
 		this.id = id.replaceAll( "\\s+", "" );
 	}
 	
-	public Apocalypse( FileConfiguration config ) {
-		id = config.getName().replaceFirst( "\\.yml$", "" );
+	public Apocalypse( String id, FileConfiguration config ) {
+		this.id = id;
 		world = Bukkit.getWorld( config.getString( "world" ) );
 		if ( world == null ) {
 			throw new IllegalArgumentException( "World provided does not exist! '" + config.getString( "world" ) + "'" );
@@ -189,6 +189,7 @@ public class Apocalypse {
 		// DEBUG
 
 		SpawnSet set = Util.getRandom( spawns );
+		monsters.clear();
 		for ( UUID uuid : participants ) {
 			Player player = Bukkit.getPlayer( uuid );
 			spawnMobs( set, player );

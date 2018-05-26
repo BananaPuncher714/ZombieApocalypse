@@ -12,15 +12,15 @@ public class ZombieApocalypseExpansion extends PlaceholderExpansion {
 	@Override
 	public String onPlaceholderRequest( Player player, String identifier ) {
 		for ( Apocalypse apocalypse : ApocalypseManager.getInstance().getApocalypses() ) {
-			if ( identifier.equalsIgnoreCase( apocalypse.getId() + "running" ) ) {
+			if ( identifier.equalsIgnoreCase( apocalypse.getId() + "_running" ) ) {
 				return apocalypse.isRunning() + "";
-			} else if ( identifier.equalsIgnoreCase( apocalypse.getId() + "kill_percent_required" ) ) {
+			} else if ( identifier.equalsIgnoreCase( apocalypse.getId() + "_kill_percent_required" ) ) {
 				return apocalypse.getKillPercentRequired() + "";
-			} else if ( identifier.equalsIgnoreCase( apocalypse.getId() + "percent_killed" ) ) {
+			} else if ( identifier.equalsIgnoreCase( apocalypse.getId() + "_percent_killed" ) ) {
 				return apocalypse.getPercentCleared() + "";
-			} else if ( identifier.equalsIgnoreCase( apocalypse.getId() + "amount_cleared" ) ) {
+			} else if ( identifier.equalsIgnoreCase( apocalypse.getId() + "_amount_cleared" ) ) {
 				return apocalypse.getAmountCleared() + "";
-			} else if ( identifier.equalsIgnoreCase( apocalypse.getId() + "amount_total" ) ) {
+			} else if ( identifier.equalsIgnoreCase( apocalypse.getId() + "_amount_total" ) ) {
 				return apocalypse.getAmountTotal() + "";
 			}
 		}
@@ -34,7 +34,7 @@ public class ZombieApocalypseExpansion extends PlaceholderExpansion {
 
 	@Override
 	public String getIdentifier() {
-		return "headhunt";
+		return "zombieapocalypse";
 	}
 
 	@Override

@@ -1,12 +1,5 @@
-rewards:
-  item-1:
-    id:
-    data:
-    name:
-    lore:
-    - ""
-    - ""
-    amount: 10
-    chance: .5
+messages:
+  command:
+    help: "&cUsage: /zombieapocalypse <start|stop|end|saveexamples>"
     
     

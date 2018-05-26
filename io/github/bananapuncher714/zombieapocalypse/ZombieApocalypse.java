@@ -1,6 +1,8 @@
 package io.github.bananapuncher714.zombieapocalypse;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,6 +24,8 @@ public class ZombieApocalypse extends JavaPlugin {
 	
 	private static boolean placeholderAPI, mvdwPlaceholderAPI;
 	
+	private Map< String, String > messages = new HashMap< String, String >();
+	
 	@Override
 	public void onEnable() {
 		saveDefaultConfig();
@@ -38,7 +42,7 @@ public class ZombieApocalypse extends JavaPlugin {
 		
 		new TimeWatcher( this );
 		
-		DemoStarter.init();
+//		DemoStarter.init();
 		
 		Bukkit.getScheduler().scheduleSyncDelayedTask( this, this::loadFiles, 2 );
 	}

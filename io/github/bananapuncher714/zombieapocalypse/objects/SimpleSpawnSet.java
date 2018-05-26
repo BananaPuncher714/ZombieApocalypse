@@ -46,6 +46,7 @@ public class SimpleSpawnSet extends SpawnSet {
 				entity.setCustomName( name );
 				entity.setCustomNameVisible( true );
 			}
+			entities.add( entity );
 		}
 		return entities;
 	}

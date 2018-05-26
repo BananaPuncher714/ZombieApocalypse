@@ -42,7 +42,8 @@ public class ApocalypseDeserializer {
 		}
 		for ( File file : baseDir.listFiles() ) {
 			FileConfiguration config = YamlConfiguration.loadConfiguration( file );
-			Apocalypse apocalypse = new Apocalypse( config );
+			String id = file.getName().replaceFirst( "\\.yml$", "" );
+			Apocalypse apocalypse = new Apocalypse( id, config );
 			ApocalypseManager.getInstance().registerApocalypse( apocalypse );
 		}
 	}
