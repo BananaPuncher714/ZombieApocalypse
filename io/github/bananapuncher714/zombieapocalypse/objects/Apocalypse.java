@@ -21,6 +21,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 
+import io.github.bananapuncher714.zombieapocalypse.ApocalypseManager;
 import io.github.bananapuncher714.zombieapocalypse.util.Util;
 
 public class Apocalypse {
@@ -47,6 +48,47 @@ public class Apocalypse {
 	public Apocalypse( FileConfiguration config ) {
 		id = config.getName().replaceFirst( "\\.yml$", "" );
 		world = Bukkit.getWorld( config.getString( "world" ) );
+		if ( world == null ) {
+			throw new IllegalArgumentException( "World provided does not exist! '" + config.getString( "world" ) + "'" );
+		}
+		timeStart = config.getInt( "time.start" );
+		timeEnd = config.getInt( "time.end" );
+		possibility = config.getDouble( "time.possibility" );
+		killPercentRequired = config.getDouble( "kill-percent-required" );
+		playersRequired = config.getInt( "players-required" );
+		endOnFinish = EndState.valueOf( config.getString( "end-state" ).toUpperCase() );
+		for ( String string : config.getStringList( "rewards" ) ) {
+			String[] data = string.split( ":" );
+			RewardSet set = ApocalypseManager.getInstance().getRewardSet( data[ 0 ] );
+			if ( set == null ) {
+				System.out.println( "Invalid RewardSet! '" + data[ 0 ] + "'"  );
+			}
+			int weight = 1;
+			if ( data.length == 2 ) {
+				try {
+					weight = Integer.parseInt( data[ 1 ] );
+				} catch ( Exception exception ) {
+					exception.printStackTrace();
+				}
+			}
+			rewards.put( set, weight );
+		}
+		for ( String string : config.getStringList( "spawns" ) ) {
+			String[] data = string.split( ":" );
+			SpawnSet set = ApocalypseManager.getInstance().getSpawnSet( data[ 0 ] );
+			if ( set == null ) {
+				System.out.println( "Invalid SpawnSet! '" + data[ 0 ] + "'"  );
+			}
+			int weight = 1;
+			if ( data.length == 2 ) {
+				try {
+					weight = Integer.parseInt( data[ 1 ] );
+				} catch ( Exception exception ) {
+					exception.printStackTrace();
+				}
+			}
+			spawns.put( set, weight );
+		}
 	}
 
 	public Apocalypse setStartAndStop( int start, int stop ) {

@@ -27,6 +27,7 @@ public class ZombieTabCompleter implements TabCompleter {
 			aos.add( "start" );
 			aos.add( "stop" );
 			aos.add( "end" );
+			aos.add( "saveexamples" );
 		} else if ( arg3.length == 2 ) {
 			for ( Apocalypse apocalypse : ApocalypseManager.getInstance().getApocalypses() ) {
 				aos.add( apocalypse.getId() );

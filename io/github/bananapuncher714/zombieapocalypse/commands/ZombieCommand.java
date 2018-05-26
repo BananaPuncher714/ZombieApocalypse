@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.zombieapocalypse.ApocalypseManager;
+import io.github.bananapuncher714.zombieapocalypse.ZombieApocalypse;
 import io.github.bananapuncher714.zombieapocalypse.ZombiePerms;
 import io.github.bananapuncher714.zombieapocalypse.objects.Apocalypse;
 
@@ -23,6 +24,8 @@ public class ZombieCommand implements CommandExecutor {
 				stop( sender, args );
 			} else if ( args[ 0 ].equalsIgnoreCase( "end" ) ) {
 				end( sender, args );
+			} else if ( args[ 0 ].equalsIgnoreCase( "saveexamples" ) ) {
+				save( sender );
 			}
 		} else {
 			showHelp( sender );
@@ -126,5 +129,13 @@ public class ZombieCommand implements CommandExecutor {
 		}
 		apocalypse.stop( false );
 		sender.sendMessage( "Stopped '" + apocalypse + "' forcefully" );
+	}
+	
+	private void save( CommandSender sender ) {
+		if ( !ZombiePerms.isAdmin( sender ) ) {
+			sender.sendMessage( "You do not have permission to run this command!" );
+			return;
+		}
+		ZombieApocalypse.getPlugin( ZombieApocalypse.class ).saveResources();
 	}
 }
