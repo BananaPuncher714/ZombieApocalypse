@@ -19,7 +19,7 @@ public class ZombieTabCompleter implements TabCompleter {
 	public List<String> onTabComplete( CommandSender arg0, Command arg1, String arg2, String[] arg3 ) {
 		List< String > completions = new ArrayList< String >();
 		List< String > aos = new ArrayList< String >();
-		
+
 		if ( !ZombiePerms.isAdmin( arg0 ) ) {
 			return completions;
 		}
@@ -28,16 +28,21 @@ public class ZombieTabCompleter implements TabCompleter {
 			aos.add( "stop" );
 			aos.add( "end" );
 			aos.add( "saveexamples" );
+			aos.add( "open" );
 		} else if ( arg3.length == 2 ) {
-			for ( Apocalypse apocalypse : ApocalypseManager.getInstance().getApocalypses() ) {
-				aos.add( apocalypse.getId() );
+			if ( arg3[ 0 ].equalsIgnoreCase( "save" ) ) {
+			} else if ( arg3[ 0 ].equalsIgnoreCase( "open" ) ) {
+			} else {
+				for ( Apocalypse apocalypse : ApocalypseManager.getInstance().getApocalypses() ) {
+					aos.add( apocalypse.getId() );
+				}
 			}
 		}
-		
+
 		StringUtil.copyPartialMatches( arg3[ arg3.length - 1 ], aos, completions );
 		Collections.sort( completions );
 		return completions;
-		
+
 	}
 
 }

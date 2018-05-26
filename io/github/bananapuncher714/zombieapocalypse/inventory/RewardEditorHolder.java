@@ -27,7 +27,9 @@ public class RewardEditorHolder extends BananaHolder {
 
 	@Override
 	public Inventory getInventory() {
+		inventory.clear();
 		int maxPages = ( int ) Math.ceil( set.getItems().size() / ( double ) ( inventory.getSize() - 9 ) );
+		page = Math.min( maxPages, page );
 		for ( int i = 0; i < 9; i++ ) {
 			ItemStack item;
 			if ( i == 0 && page > 0 ) {
@@ -47,7 +49,11 @@ public class RewardEditorHolder extends BananaHolder {
 			if ( i + startIndex >= set.getItems().size() ) {
 				break;
 			}
-			inventory.addItem( set.getItems().get( i + startIndex ) );
+			ItemStack item = set.getItems().get( i + startIndex );
+			item = NBTEditor.setItemTag( item, ( byte ) 1, "zombieapocalypse", "inventory", "custom" );
+			item = NBTEditor.setItemTag( item, "get", "zombieapocalypse", "inventory", "meta-1" );
+			item = NBTEditor.setItemTag( item, i + startIndex, "zombieapocalypse", "inventory", "meta-2" );
+			inventory.setItem( i, item );
 		}
 		return inventory;
 	}
@@ -69,11 +75,14 @@ public class RewardEditorHolder extends BananaHolder {
 			if ( !click.isShiftClick() || item == null ) {
 				return;
 			}
+			if ( item.getType() == Material.AIR ) {
+				return;
+			}
 			event.setCurrentItem( new ItemStack( Material.AIR ) );
 			set.getItems().add( item );
-		} else if ( cursor != null ) {
+		} else if ( cursor != null && cursor.getType() != Material.AIR ) {
 			event.setCursor( new ItemStack( Material.AIR ) );
-			set.getItems().add( item );
+			set.getItems().add( cursor );
 		} else if ( item != null && NBTEditor.getItemTag( item, "zombieapocalypse", "inventory", "custom" ) != null ) {
 			String meta = ( String ) NBTEditor.getItemTag( item, "zombieapocalypse", "inventory", "meta-1" );
 			if ( meta == null ) {
@@ -84,8 +93,8 @@ public class RewardEditorHolder extends BananaHolder {
 			} else if ( meta.equalsIgnoreCase( "prev page" ) ) {
 				page = Math.max( 0, page - 1 );
 			} else if ( meta.equalsIgnoreCase( "get" ) ) {
-				set.getItems().remove( item );
-				event.setCursor( item );
+				int index = ( int ) NBTEditor.getItemTag( item, "zombieapocalypse", "inventory", "meta-2" );
+				event.setCursor( set.getItems().remove( index ) );
 			}
 		}
 		getInventory();

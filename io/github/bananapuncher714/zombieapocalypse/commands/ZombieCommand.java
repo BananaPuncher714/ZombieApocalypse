@@ -7,11 +7,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import io.github.bananapuncher714.zombieapocalypse.ApocalypseManager;
 import io.github.bananapuncher714.zombieapocalypse.ZombieApocalypse;
 import io.github.bananapuncher714.zombieapocalypse.ZombiePerms;
+import io.github.bananapuncher714.zombieapocalypse.inventory.RewardEditorHolder;
 import io.github.bananapuncher714.zombieapocalypse.objects.Apocalypse;
+import io.github.bananapuncher714.zombieapocalypse.objects.RewardSet;
+import io.github.bananapuncher714.zombieapocalypse.objects.StandardRewardSet;
 
 public class ZombieCommand implements CommandExecutor {
 
@@ -26,6 +30,8 @@ public class ZombieCommand implements CommandExecutor {
 				end( sender, args );
 			} else if ( args[ 0 ].equalsIgnoreCase( "saveexamples" ) ) {
 				save( sender );
+			} else if ( args[ 0 ].equalsIgnoreCase( "open" ) ) {
+				open( sender, args );
 			}
 		} else {
 			showHelp( sender );
@@ -148,5 +154,31 @@ public class ZombieCommand implements CommandExecutor {
 		}
 		ZombieApocalypse.getPlugin( ZombieApocalypse.class ).saveResources();
 		sender.sendMessage( ZombieApocalypse.parse( "command.saved-examples", sender ) );
+	}
+	
+	private void open( CommandSender sender, String[] args ) {
+		if ( !ZombiePerms.isAdmin( sender ) ) {
+			sender.sendMessage( ZombieApocalypse.parse( "command.no-permission", sender ) );
+			return;
+		}
+		if ( !( sender instanceof Player ) ) {
+			sender.sendMessage( ZombieApocalypse.parse( "command.must-be-player", sender ) );
+			return;
+		}
+		if ( args.length < 2 ) {
+			sender.sendMessage( ZombieApocalypse.parse( "command.arguments-required", sender ) );
+			return;
+		}
+		RewardSet set = ApocalypseManager.getInstance().getRewardSet( args[ 1 ] );
+		if ( set != null && !( set instanceof StandardRewardSet ) ) {
+			sender.sendMessage( ZombieApocalypse.parse( "command.invalid-reward-set", sender ) );
+			return;
+		}
+		if ( set == null ) {
+			set = new StandardRewardSet( new ArrayList< ItemStack >() );
+			ApocalypseManager.getInstance().registerRewardSet( args[ 1 ], set );
+		}
+		Player player = ( Player ) sender;
+		player.openInventory( new RewardEditorHolder( args[ 1 ], ( StandardRewardSet ) set ).getInventory() );
 	}
 }

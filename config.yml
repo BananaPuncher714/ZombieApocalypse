@@ -6,6 +6,7 @@ messages:
     apocalypse-required: "&1[&9ZombieApocalypse&1]&cYou must provide an apocalypse as an argument!"
     no-permission: "&cYou do not have permission to run this command!"
     invalid-apocalypse: "&1[&9ZombieApocalypse&1]&c'%0' is not a valid apocalypse!"
+    must-be-player: "&cYou must be a player to run this command!"
 
     no-apocalypses-started: "&1[&9ZombieApocalypse&1]&cNo apocalypses were started"
     starting-apocalypses: "&1[&9ZombieApocalypse&1]&aStarting apocalypses..."
@@ -19,6 +20,9 @@ messages:
     done-stopping-apocalypses: "&1[&9ZombieApocalypse&1]&aDone stopping apocalypses!"
     
     saved-examples: "&1[&9ZombieApocalypse&1]&bSaved examples successfully!"
+    
+    arguments-required: "&cYou must provide a valid RewardSet id!"
+    invalid-reward-set: "&c'%0' is not a valid RewardSet!"
   notifications:
     started-apocalypse: "&1[&9ZombieApocalypse&1]&c&lThe sky darkens and you hear sounds coming from the ground..."
     completed-apocalypse: "&1[&9ZombieApocalypse&1]&aYou have successfully survived the onslaught!" 

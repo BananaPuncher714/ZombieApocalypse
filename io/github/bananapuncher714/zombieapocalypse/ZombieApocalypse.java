@@ -62,6 +62,9 @@ public class ZombieApocalypse extends JavaPlugin {
 		for ( String string : config.getConfigurationSection( "messages" ).getKeys( true ) ) {
 			messages.put( string, config.getString( "messages." + string ) );
 		}
+		for ( String set : config.getConfigurationSection( "standard-rewards" ).getKeys( false ) ) {
+			// TODO do this later
+		}
 	}
 	
 	private void loadFiles() {
