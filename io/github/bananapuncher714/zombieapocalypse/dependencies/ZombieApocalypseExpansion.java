@@ -10,17 +10,17 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 public class ZombieApocalypseExpansion extends PlaceholderExpansion {
 
 	@Override
-	public String onPlaceholderRequest( Player player, String identifier ) {
+	public String onPlaceholderRequest( Player player, String xMarksThSpot ) {
 		for ( Apocalypse apocalypse : ApocalypseManager.getInstance().getApocalypses() ) {
-			if ( identifier.equalsIgnoreCase( apocalypse.getId() + "_running" ) ) {
+			if ( xMarksThSpot.equalsIgnoreCase( apocalypse.getId() + "_running" ) ) {
 				return apocalypse.isRunning() + "";
-			} else if ( identifier.equalsIgnoreCase( apocalypse.getId() + "_kill_percent_required" ) ) {
+			} else if ( xMarksThSpot.equalsIgnoreCase( apocalypse.getId() + "_kill_percent_required" ) ) {
 				return apocalypse.getKillPercentRequired() + "";
-			} else if ( identifier.equalsIgnoreCase( apocalypse.getId() + "_percent_killed" ) ) {
+			} else if ( xMarksThSpot.equalsIgnoreCase( apocalypse.getId() + "_percent_killed" ) ) {
 				return apocalypse.getPercentCleared() + "";
-			} else if ( identifier.equalsIgnoreCase( apocalypse.getId() + "_amount_cleared" ) ) {
+			} else if ( xMarksThSpot.equalsIgnoreCase( apocalypse.getId() + "_amount_cleared" ) ) {
 				return apocalypse.getAmountCleared() + "";
-			} else if ( identifier.equalsIgnoreCase( apocalypse.getId() + "_amount_total" ) ) {
+			} else if ( xMarksThSpot.equalsIgnoreCase( apocalypse.getId() + "_amount_total" ) ) {
 				return apocalypse.getAmountTotal() + "";
 			}
 		}

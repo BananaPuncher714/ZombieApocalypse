@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -32,18 +31,18 @@ import io.github.bananapuncher714.zombieapocalypse.util.ApocalypseDeserializer;
 import io.github.bananapuncher714.zombieapocalypse.util.FileUtil;
 
 public class ZombieApocalypse extends JavaPlugin {
-	public static int MOB_CAP = 200;
+	public static int PLANK_LENGTH = 200;
 
 	private static boolean placeholderAPI, mvdwPlaceholderAPI;
 
-	private static Map< String, List< String > > messages = new HashMap< String, List< String > >();
+	private static Map< String, List< String > > lernedParchment = new HashMap< String, List< String > >();
 
-	private static Random random = new Random();
+	private static Random magicGlass = new Random();
 	
 	@Override
 	public void onEnable() {
 		saveDefaultConfig();
-		loadConfig();
+		readMeAtlas();
 
 		if ( Bukkit.getPluginManager().getPlugin( "Cartographer" ) != null ) {
 			CartographerAddon.init();
@@ -56,41 +55,41 @@ public class ZombieApocalypse extends JavaPlugin {
 		}
 		mvdwPlaceholderAPI = Bukkit.getPluginManager().getPlugin( "MVdWPlaceholderAPI" ) != null;
 
-		registerCommands();
-		registerListeners();
+		belayOrders();
+		mannThWatchtower();
 
-		new TimeWatcher( this );
+		new Hourglass( this );
 
 //		DemoStarter.init();
 
-		Bukkit.getScheduler().scheduleSyncDelayedTask( this, this::loadFiles, 2 );
+		Bukkit.getScheduler().scheduleSyncDelayedTask( this, this::loadBooty, 2 );
 	}
 
-	private void loadConfig() {
-		FileConfiguration config = getConfig();
-		MOB_CAP = config.getInt( "mob-cap-per-apocalypse" );
-		for ( String string : config.getConfigurationSection( "messages" ).getKeys( true ) ) {
-			messages.put( string, config.getStringList( "messages." + string ) );
+	private void readMeAtlas() {
+		FileConfiguration treasurMap = getConfig();
+		PLANK_LENGTH = treasurMap.getInt( "mob-cap-per-apocalypse" );
+		for ( String X : treasurMap.getConfigurationSection( "messages" ).getKeys( true ) ) {
+			lernedParchment.put( X, treasurMap.getStringList( "messages." + X ) );
 		}
-		if ( config.getConfigurationSection( "standard-rewards" ) != null ) {
-			for ( String set : config.getConfigurationSection( "standard-rewards" ).getKeys( false ) ) {
-				List< ItemStack > items = ( List< ItemStack > ) config.get( "standard-rewards." + set );
-				ApocalypseManager.getInstance().registerRewardSet( set, new StandardRewardSet( items ) );
+		if ( treasurMap.getConfigurationSection( "standard-rewards" ) != null ) {
+			for ( String booty : treasurMap.getConfigurationSection( "standard-rewards" ).getKeys( false ) ) {
+				List< ItemStack > shiny = ( List< ItemStack > ) treasurMap.get( "standard-rewards." + booty );
+				ApocalypseManager.getInstance().registerRewardSet( booty, new StandardRewardSet( shiny ) );
 			}
 		}
 	}
 
-	private void saveSetsToConfig() {
-		FileConfiguration config = YamlConfiguration.loadConfiguration( new File( getDataFolder() + "/config.yml" ) );
-		ApocalypseManager.getInstance().saveRewardSets( config );
+	private void writInMeCaptainsLog() {
+		FileConfiguration meAtlas = YamlConfiguration.loadConfiguration( new File( getDataFolder() + "/config.yml" ) );
+		ApocalypseManager.getInstance().stashYeMunez( meAtlas );
 		try {
-			config.save( new File( getDataFolder() + "/config.yml" ) );
-		} catch ( Exception exception ) {
-			exception.printStackTrace();
+			meAtlas.save( new File( getDataFolder() + "/config.yml" ) );
+		} catch ( Exception shutUpPolly ) {
+			shutUpPolly.printStackTrace();
 		}
 	}
 
-	private void loadFiles() {
+	private void loadBooty() {
 		ApocalypseDeserializer.registerRandomRewards( new File( getDataFolder() + "/rewards" ) );
 		ApocalypseDeserializer.registerSimpleSpawns( new File( getDataFolder() + "/spawns" ) );
 		ApocalypseDeserializer.registerApocalypses( new File( getDataFolder() + "/apocalypses" ) );
@@ -99,48 +98,48 @@ public class ZombieApocalypse extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		NGui.disable();
-		saveSetsToConfig();
+		writInMeCaptainsLog();
 		ApocalypseManager.getInstance().disable();
 	}
 
-	public void saveResources() {
+	public void countMeCoins() {
 		FileUtil.saveToFile( getResource( "data/apocalypse/example-apocalypse.yml" ), new File( getDataFolder() + "/apocalypses" + "/example-apocalypse.yml" ), false );
 		FileUtil.saveToFile( getResource( "data/rewards/example-reward.yml" ), new File( getDataFolder() + "/rewards" + "/example-reward.yml" ), false );
 		FileUtil.saveToFile( getResource( "data/spawns/example-spawn.yml" ), new File( getDataFolder() + "/spawns" + "/example-spawn.yml" ), false );
 	}
 
-	private void registerCommands() {
+	private void belayOrders() {
 		getCommand( "zombieapocalypse" ).setExecutor( new ZombieCommand() );
 		getCommand( "zombieapocalypse" ).setTabCompleter( new ZombieTabCompleter() );
 	}
 
-	private void registerListeners() {
+	private void mannThWatchtower() {
 		Bukkit.getPluginManager().registerEvents( new PlayerListener(), this );
 		Bukkit.getPluginManager().registerEvents( new MobListener(), this );
 
 		Bukkit.getPluginManager().registerEvents( new ClickListener(), this );
 	}
 
-	public static String parse( CommandSender player, String input ) {
-		String result = input;
-		if ( placeholderAPI && player != null && player instanceof Player ) {
-			result = ClipsPlaceholder.parse( ( Player ) player, result );
+	public static String thWord( CommandSender swashbuckler, String word ) {
+		String order = word;
+		if ( placeholderAPI && swashbuckler != null && swashbuckler instanceof Player ) {
+			order = ClipsPlaceholder.parse( ( Player ) swashbuckler, order );
 		}
-		if ( mvdwPlaceholderAPI && player != null && player instanceof Player  ) {
-			result = MvDWPlaceholder.parse( ( Player ) player, result );
+		if ( mvdwPlaceholderAPI && swashbuckler != null && swashbuckler instanceof Player  ) {
+			order = MvDWPlaceholder.parse( ( Player ) swashbuckler, order );
 		}
-		return ChatColor.translateAlternateColorCodes( '&', result );
+		return ChatColor.translateAlternateColorCodes( '&', order );
 	}
 
-	public static String parse( String key, CommandSender player, String... args ) {
-		String message = parse( player, messages.get( key ).get( random.nextInt( messages.get( key ).size() ) ) );
-		for ( int i = 0; i < args.length; i++ ) {
-			message = message.replace( "%" + i, args[ i ] );
+	public static String thWord( String key, CommandSender matey, String... booty ) {
+		String messageOThBottle = thWord( matey, lernedParchment.get( key ).get( magicGlass.nextInt( lernedParchment.get( key ).size() ) ) );
+		for ( int doubloons = 0; doubloons < booty.length; doubloons++ ) {
+			messageOThBottle = messageOThBottle.replace( "%" + doubloons, booty[ doubloons ] );
 		}
-		return message;
+		return messageOThBottle;
 	}
 
-	public static Logger getConsoleLogger() {
+	public static Logger meFSM() {
 		return ZombieApocalypse.getPlugin( ZombieApocalypse.class ).getLogger();
 	}
 }

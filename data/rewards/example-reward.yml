@@ -3,24 +3,23 @@
 item-count: 3
 # Materials, can support <material>:<data-value> and can have the owner's name if material is SKULL_ITEM
 materials:
-- "SKULL_ITEM:3:Notch"
-- "276"
-- "35:1"
-- "INK_SACK:14"
+- "SKULL_ITEM:3:Aeternum"
+- "SKULL_ITEM:3:BananaPuncher714"
+- "280"
 - "GOLD_AXE"
 # The lore
 # Can contain random<min,max> for a random number
 lore:
     required:
-    - "Contains random<1,9> potatoes!"
-    - "Used to slay telephone poles"
-    - "random<121,169> extra easter eggs ensured"
+    - "&bContains random<1,9> potatoes!"
+    - "&aUsed to slay telephone poles"
+    - "&9random<121,169> extra easter eggs ensured"
     # The :5 means it has a weight of 5. Default is a weight of one
     optional:
     - "&bAwesome stuff:5"
     - "&cPowerful too:4"
     - "&aVery magical:1"
-    - "&aThis is supposed to be as rare as magic"
+    - "&aVery useful for licking things"
     optional-min: 1
     optional-max: 2
 enchantments:
@@ -42,7 +41,7 @@ enchantments:
 names:
     prefix:
         names:
-        - "Awesome"
+        - "Swaggy"
         - "Cool:10"
         - "Magical:1"
         min-amount: 1
@@ -55,8 +54,9 @@ names:
     suffix:
         names:
         - "Crusher:10"
-        - "Says hi:1"
+        - "The Destroyer:1"
         - "Likes pop-tarts"
+        - "Of Doom"
         min-amount: 1
         max-amount: 1
  # The custom durability will only be applied to items if true

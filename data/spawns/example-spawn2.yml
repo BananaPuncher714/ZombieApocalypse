@@ -1,0 +1,13 @@
+# The entity type of this spawnset
+entity-type: GUARDIAN
+# The name of the zombie, remove to give the mob no name
+name: "EEEEEVIL"
+# The health of the mob
+health: 100
+# Whether or not they glow
+glowing: true
+# The amount, and ranges in which they spawn around each player
+spawn:
+  amount: 5
+  min-range: 10
+  max-range: 20

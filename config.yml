@@ -43,27 +43,44 @@ messages:
   notifications:
     started-apocalypse:
     - "&1[&9ZombieApocalypse&1] &c&lThe sky darkens and you hear sounds coming from the ground..."
+    - "&1[&9ZombieApocalypse&1] &c&lThou foe art approching! beest on thy guard! "
     - "&1[&9ZombieApocalypse&1] &c&lThe earth shakes and you hear moaning nearby"
+    - "&1[&9ZombieApocalypse&1] &c&lArrr! Dave Jones be hauntin' close by..."
+    - "&1[&9ZombieApocalypse&1] &c&lShiver me timbers! This here be ye' dooty callin'"
     completed-apocalypse:
     - "&1[&9ZombieApocalypse&1] &a&lThe sounds of the undead slowly fades away!" 
     - "&1[&9ZombieApocalypse&1] &a&lThe undead flee!"
+    - "&1[&9ZombieApocalypse&1] &a&lAye! thee has't combated off the foe"
+    - "&1[&9ZombieApocalypse&1] &a&lYe' be seein' the backs o' them scallywags!"
     - "&1[&9ZombieApocalypse&1] &a&lYou hear the fanfare of triumph"
+    - "&1[&9ZombieApocalypse&1] &a&lThee has't wonneth the battleth"
     not-enough-players:
     - "&1[&9ZombieApocalypse&1] &cThe hordes leave due to lack of competition..."
+    - "&1[&9ZombieApocalypse&1] &cNay, thou foe art not int'rest'd!"
     - "&1[&9ZombieApocalypse&1] &cThe undead appear uninterested in you"
+    - "&1[&9ZombieApocalypse&1] &cTh' bag o' bones be quittin ye' party!"
     - "&1[&9ZombieApocalypse&1] &cNobody shows up to the party..." 
     win-stuff:
-    - "&1[&9ZombieApocalypse&1]&bRelics of awesomeness have been left behind!"
-    - "&1[&9ZombieApocalypse&1]&bNew items have been discovered!"
+    - "&1[&9ZombieApocalypse&1] &bRelics of awesomeness have been left behind!"
+    - "&1[&9ZombieApocalypse&1] &bNew items have been discovered!"
+    - "&1[&9ZombieApocalypse&1] &bNew items have been discovered!"
+    - "&1[&9ZombieApocalypse&1] &bAye, matey! This here be ye' booty"
+    - "&1[&9ZombieApocalypse&1] &bTh're's plenty of spoils to wend 'round"
     lost-stuff:
     - "&1[&9ZombieApocalypse&1] &cThe sounds of the undead shake the earth then vanish."
+    - "&1[&9ZombieApocalypse&1] &cYe' mark me solid, we'll needs more rum!"
     - "&1[&9ZombieApocalypse&1] &cThe enemies retreat but you have a feeling they will be back..."
     died:
+    - "&1[&9ZombieApocalypse&1] &cHow has't thou marked'th thee such?"
     - "&1[&9ZombieApocalypse&1] &cYou have fallen victim to the monsters..."
+    - "&1[&9ZombieApocalypse&1] &cYeh've laid long 'nough!"
     - "&1[&9ZombieApocalypse&1] &cYou've lost your cake!"
     no-tp:
     - "&1[&9ZombieApocalypse&1] &cA mysterious force prevents you from teleporting..."
+    - "&1[&9ZombieApocalypse&1] &c Anon's not the timeth to abandon thy posteth"
+    - "&1[&9ZombieApocalypse&1] &cAin't nobody be abandonin' me dooty with treasure fer us lads!"
     - "&1[&9ZombieApocalypse&1] &cThe Flying Spaghetti Monster enforces its Noodly Appendage upon you"
     escaped:
     - "&1[&9ZombieApocalypse&1] &bYou have escaped from the advancing horde!"
     - "&1[&9ZombieApocalypse&1] &bYou make it out in one piece"
+    - "&1[&9ZombieApocalypse&1] &cWhat think ye', runnin' from yer dooty?!?"

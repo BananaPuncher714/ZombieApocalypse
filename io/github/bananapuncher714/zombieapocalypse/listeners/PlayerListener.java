@@ -10,7 +10,7 @@ public class PlayerListener implements Listener {
 	
 	@EventHandler
 	public void kickOutOfBed( PlayerBedEnterEvent e ) {
-		if ( ApocalypseManager.getInstance().isInApocalypse( e.getPlayer() ) ) {
+		if ( ApocalypseManager.getInstance().beSwashbucklin( e.getPlayer() ) ) {
 			e.setCancelled( true );
 		}
 	}

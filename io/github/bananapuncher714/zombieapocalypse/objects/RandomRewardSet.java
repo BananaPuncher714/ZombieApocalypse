@@ -148,7 +148,7 @@ public class RandomRewardSet extends RewardSet {
 		if ( names.size() > 0 ) {
 			itemName = parseRandom( selectRandom( names ) );
 		}
-		itemName = ZombieApocalypse.parse( player, itemName );
+		itemName = ZombieApocalypse.thWord( player, itemName );
 		
 		String[] rawMaterials = randomMaterial.split( ":" );
 		Material material;
@@ -194,7 +194,7 @@ public class RandomRewardSet extends RewardSet {
 		}
 		List< String > lore = new ArrayList< String >();
 		for ( String s : requiredLore ) {
-			lore.add( ZombieApocalypse.parse( player, parseRandom( s ) ) );
+			lore.add( ZombieApocalypse.thWord( player, parseRandom( s ) ) );
 		}
 		
 		int loreAmount = random.nextInt( loreMax - loreMin + 1 ) + loreMin;

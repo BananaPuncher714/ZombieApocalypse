@@ -1,6 +1,6 @@
 main: io.github.bananapuncher714.zombieapocalypse.ZombieApocalypse
 name: ZombieApocalypse
-version: 1.0
+version: 42.0
 author: BananaPuncher714
 description: Adds cool stuff
 softdepend:

@@ -59,7 +59,7 @@ public class DemoStarter {
 		
 		apocalypse.setEndState( EndState.KILL_REQUIRED );
 		
-		ApocalypseManager.getInstance().registerApocalypse( apocalypse );
+		ApocalypseManager.getInstance().rememberMeX( apocalypse );
 	}
 
 	/**

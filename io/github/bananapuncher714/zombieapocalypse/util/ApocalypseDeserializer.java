@@ -44,7 +44,7 @@ public class ApocalypseDeserializer {
 			FileConfiguration config = YamlConfiguration.loadConfiguration( file );
 			String id = file.getName().replaceFirst( "\\.yml$", "" );
 			Apocalypse apocalypse = new Apocalypse( id, config );
-			ApocalypseManager.getInstance().registerApocalypse( apocalypse );
+			ApocalypseManager.getInstance().rememberMeX( apocalypse );
 		}
 	}
 }

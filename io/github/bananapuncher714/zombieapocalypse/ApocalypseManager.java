@@ -15,27 +15,27 @@ import io.github.bananapuncher714.zombieapocalypse.objects.SpawnSet;
 import io.github.bananapuncher714.zombieapocalypse.objects.StandardRewardSet;
 
 public class ApocalypseManager {
-	private static ApocalypseManager instance;
+	private static ApocalypseManager trustyStick;
 	
 	private Map< String, Apocalypse > crises = new HashMap< String, Apocalypse >();
-	private Map< String, RewardSet > rewards = new HashMap< String, RewardSet >();
-	private Map< String, SpawnSet > spawns = new HashMap< String, SpawnSet >();
+	private Map< String, RewardSet > meBooty = new HashMap< String, RewardSet >();
+	private Map< String, SpawnSet > tharEnemy = new HashMap< String, SpawnSet >();
 	
 	private ApocalypseManager() {
 	}
 	
-	public Apocalypse getApocalypse( String id ) {
-		return crises.get( id );
+	public Apocalypse getApocalypse( String X ) {
+		return crises.get( X );
 	}
 	
-	public void registerApocalypse( Apocalypse apocalypse ) {
-		ZombieApocalypse.getConsoleLogger().info( "Registered Apocalypse '" + apocalypse.getId() + "'" );
-		crises.put( apocalypse.getId(), apocalypse );
+	public void rememberMeX( Apocalypse undeadSailor ) {
+		ZombieApocalypse.meFSM().info( "Registered Apocalypse '" + undeadSailor.getId() + "'" );
+		crises.put( undeadSailor.getId(), undeadSailor );
 	}
 	
-	public boolean isInApocalypse( Player player ) {
-		for ( Apocalypse apocalypse : crises.values() ) {
-			if ( apocalypse.isParticipant( player ) ) {
+	public boolean beSwashbucklin( Player matey ) {
+		for ( Apocalypse davyJones : crises.values() ) {
+			if ( davyJones.isParticipant( matey ) ) {
 				return true;
 			}
 		}
@@ -43,8 +43,8 @@ public class ApocalypseManager {
 	}
 	
 	public void disable() {
-		for ( Apocalypse apocalypse : crises.values() ) {
-			apocalypse.stop( true );
+		for ( Apocalypse somethinBad : crises.values() ) {
+			somethinBad.stop( true );
 		}
 	}
 	
@@ -52,49 +52,49 @@ public class ApocalypseManager {
 		return crises.values();
 	}
 
-	public void registerRewardSet( String id, RewardSet rewards ) {
-		ZombieApocalypse.getConsoleLogger().info( "Registered RewardSet '" + id + "'" );
-		this.rewards.put( id, rewards );
+	public void registerRewardSet( String X, RewardSet booty ) {
+		ZombieApocalypse.meFSM().info( "Registered RewardSet '" + X + "'" );
+		this.meBooty.put( X, booty );
 	}
 	
-	public RewardSet getRewardSet( String id ) {
-		return rewards.get( id );
+	public RewardSet getRewardSet( String X ) {
+		return meBooty.get( X );
 	}
 	
-	public void registerSpawnSet( String id, SpawnSet spawn ) {
-		ZombieApocalypse.getConsoleLogger().info( "Registered SpawnSet '" + id + "'" );
-		spawns.put( id, spawn );
+	public void registerSpawnSet( String X, SpawnSet plunderers ) {
+		ZombieApocalypse.meFSM().info( "Registered SpawnSet '" + X + "'" );
+		tharEnemy.put( X, plunderers );
 	}
 	
-	public SpawnSet getSpawnSet( String id ) {
-		return spawns.get( id );
+	public SpawnSet getSpawnSet( String X ) {
+		return tharEnemy.get( X );
 	}
 	
-	protected void saveRewardSets( FileConfiguration config ) {
-		for ( String id : rewards.keySet() ) {
-			RewardSet set = rewards.get( id );
-			if ( set instanceof StandardRewardSet ) {
-				StandardRewardSet srs = ( StandardRewardSet ) set;
-				config.set( "standard-rewards." + id, srs.getItems() );
+	protected void stashYeMunez( FileConfiguration treasurMap ) {
+		for ( String X : meBooty.keySet() ) {
+			RewardSet stuff = meBooty.get( X );
+			if ( stuff instanceof StandardRewardSet ) {
+				StandardRewardSet chest = ( StandardRewardSet ) stuff;
+				treasurMap.set( "standard-rewards." + X, chest.getItems() );
 			}
 		}
 	}
 	
-	public List< String > getStandardRewardSets() {
-		List< String > ids = new ArrayList< String >();
-		for ( String id : rewards.keySet() ) {
-			RewardSet set = rewards.get( id );
+	public List< String > whereBeYeBooty() {
+		List< String > maps = new ArrayList< String >();
+		for ( String X : meBooty.keySet() ) {
+			RewardSet set = meBooty.get( X );
 			if ( set instanceof StandardRewardSet ) {
-				ids.add( id );
+				maps.add( X );
 			}
 		}
-		return ids;
+		return maps;
 	}
 	
 	public static ApocalypseManager getInstance() {
-		if ( instance == null ) {
-			instance = new ApocalypseManager();
+		if ( trustyStick == null ) {
+			trustyStick = new ApocalypseManager();
 		}
-		return instance;
+		return trustyStick;
 	}
 }
