@@ -62,6 +62,6 @@ names:
  # The custom durability will only be applied to items if true
  # Otherwise, it will only be applied to damageable items
 durability:
-     durability-percent-min: 25
-     durability-percent-max: 90
+     durability-percent-min: 0
+     durability-percent-max: 0
      unbreakable: true

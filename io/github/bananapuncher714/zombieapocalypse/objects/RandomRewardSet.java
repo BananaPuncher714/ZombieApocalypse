@@ -161,7 +161,8 @@ public class RandomRewardSet extends RewardSet {
 		if ( rawMaterials.length > 1 ) {
 			data = Integer.parseInt( rawMaterials[ 1 ] );
 		}
-		ItemStack item = new ItemStack( material, 1, ( short ) data );
+		ItemStack item = new ItemStack( material, 1 );
+		item.setDurability( ( short ) data ); 
 		if ( material == Material.SKULL_ITEM && rawMaterials.length > 2 ) {
 			SkullMeta meta = ( SkullMeta ) item.getItemMeta();
 			meta.setOwner( rawMaterials[ 2 ] );
@@ -203,7 +204,7 @@ public class RandomRewardSet extends RewardSet {
 			if ( randomLore.size() > 0 ) {
 				String rlore = selectRandom( randomLore );
 				remove( randomLore, rlore );
-				lore.add( parseRandom( rlore ) );
+				lore.add( ZombieApocalypse.thWord( player, parseRandom( rlore ) ) );
 			} else {
 				break;
 			}
@@ -217,10 +218,11 @@ public class RandomRewardSet extends RewardSet {
 		}
 		if ( unbreakable ) {
 			meta.setUnbreakable( true );
+		} else {
+			item.setDurability( ( short ) ( material.getMaxDurability() * ( 1.0 - durPercent ) ) );
 		}
 		item.setItemMeta( meta );
 		applyEnchants( item );
-		item.setDurability( ( short ) ( material.getMaxDurability() * ( 1.0 - durPercent ) ) );
 		return item;
 	}
 	
