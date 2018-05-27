@@ -2,13 +2,13 @@ main: io.github.bananapuncher714.zombieapocalypse.ZombieApocalypse
 name: ZombieApocalypse
 version: 42.0
 author: BananaPuncher714
-description: Adds cool stuff
+description: Davy Jones be lookin fer me doubloons
 softdepend:
 - "MVdWPlaceholderAPI"
 - "PlaceholderAPI"
 - "Cartographer"
 commands:
   zombieapocalypse:
-    description: displays information about the Zombie Apocalypse plugin
+    description: What be ye' lookin' here for? This be MY booty!
     aliases:
     - "za"

@@ -30,12 +30,12 @@ public class Apocalypse {
 	boolean isRunning = false;
 	final String id;
 
-	World world; // This is a worldwide event
+	World meBeHere; // This is a worldwide event
 	int timeStart = 12567, timeEnd = 22917; // The time in ticks of start and stop, 0-24000
 	double possibility = .2; // Chance of this occuring each day when it is timeStart
-	double killPercentRequired = .5; // How many mobs must be killed to win?
-	EndState endOnFinish = EndState.END_TIME;
-	int playersRequired = 1;
+	double gimmeThGold = .5; // How many mobs must be killed to win?
+	EndState whatBeYeBrand = EndState.END_TIME;
+	int meRaidinParty = 1;
 	Set< UUID > participants = new HashSet< UUID >(); // Who's playing; Only useful when apocalypse is running
 	int spawnCount = 1;
 	Map< SpawnSet, Integer > spawns = new HashMap< SpawnSet, Integer >(); // The different spawnSets to spawn mobs
@@ -45,22 +45,22 @@ public class Apocalypse {
 	Map< UUID, Boolean > monsters = new HashMap< UUID, Boolean >(); // Keep track of mobs
 
 	public Apocalypse( String id, World world ) {
-		this.world = world;
+		this.meBeHere = world;
 		this.id = id.replaceAll( "\\s+", "" );
 	}
 
 	public Apocalypse( String id, FileConfiguration config ) {
 		this.id = id;
-		world = Bukkit.getWorld( config.getString( "world" ) );
-		if ( world == null ) {
+		meBeHere = Bukkit.getWorld( config.getString( "world" ) );
+		if ( meBeHere == null ) {
 			throw new IllegalArgumentException( "World provided does not exist! '" + config.getString( "world" ) + "'" );
 		}
 		timeStart = config.getInt( "time.start" );
 		timeEnd = config.getInt( "time.end" );
 		possibility = config.getDouble( "time.possibility" );
-		killPercentRequired = config.getDouble( "kill-percent-required" );
-		playersRequired = config.getInt( "players-required" );
-		endOnFinish = EndState.valueOf( config.getString( "end-state" ).toUpperCase() );
+		gimmeThGold = config.getDouble( "kill-percent-required" );
+		meRaidinParty = config.getInt( "players-required" );
+		whatBeYeBrand = EndState.valueOf( config.getString( "end-state" ).toUpperCase() );
 		spawnCount = Math.max( 1, config.getInt( "spawn-amount" ) );
 		rewardCount = Math.max( 1, config.getInt( "reward-amount" ) );
 		for ( String string : config.getStringList( "rewards" ) ) {
@@ -104,7 +104,7 @@ public class Apocalypse {
 	}
 
 	public World getWorld() {
-		return world;
+		return meBeHere;
 	}
 
 	public int getStart() {
@@ -116,11 +116,11 @@ public class Apocalypse {
 	}
 
 	public EndState getEndState() {
-		return endOnFinish;
+		return whatBeYeBrand;
 	}
 
 	public Apocalypse setEndState( EndState state ) {
-		endOnFinish = state;
+		whatBeYeBrand = state;
 		return this;
 	}
 
@@ -138,11 +138,11 @@ public class Apocalypse {
 	}
 
 	public double getKillPercentRequired() {
-		return killPercentRequired;
+		return gimmeThGold;
 	}
 
 	public Apocalypse setKillPercentRequired( double percent ) {
-		killPercentRequired = percent;
+		gimmeThGold = percent;
 		return this;
 	}
 
@@ -183,7 +183,7 @@ public class Apocalypse {
 
 	public void start() {
 		participants.clear();
-		for ( Player player : world.getPlayers() ) {
+		for ( Player player : meBeHere.getPlayers() ) {
 			participants.add( player.getUniqueId() );
 		}
 		if ( participants.isEmpty() ) {
@@ -210,12 +210,12 @@ public class Apocalypse {
 	}
 
 	private void update() {
-		if ( participants.size() < playersRequired ) {
+		if ( participants.size() < meRaidinParty ) {
 			ZombieApocalypse.meFSM().warning( "No participants left in '" + id + "'. Stopping..." );
 			stop( false );
 			return;
 		}
-		if ( endOnFinish == EndState.KILL_ALL ) {
+		if ( whatBeYeBrand == EndState.KILL_ALL ) {
 			if ( getPercentCleared() == 1 ) {
 				for ( UUID uuid : participants ) {
 					Player player = Bukkit.getPlayer( uuid );
@@ -223,8 +223,8 @@ public class Apocalypse {
 				}
 				stop( false );
 			}
-		} else if ( endOnFinish == EndState.KILL_REQUIRED ) {
-			if ( getPercentCleared() >= killPercentRequired ) {
+		} else if ( whatBeYeBrand == EndState.KILL_REQUIRED ) {
+			if ( getPercentCleared() >= gimmeThGold ) {
 				for ( UUID uuid : participants ) {
 					Player player = Bukkit.getPlayer( uuid );
 					player.sendMessage( ZombieApocalypse.thWord( "notifications.completed-apocalypse", player ) );
@@ -250,7 +250,7 @@ public class Apocalypse {
 			return;
 		}
 
-		if ( participants.size() < playersRequired ) {
+		if ( participants.size() < meRaidinParty ) {
 			for ( UUID uuid : participants ) {
 				Player player = Bukkit.getPlayer( uuid );
 				player.sendMessage( ZombieApocalypse.thWord( "notifications.not-enough-players", player ) );
@@ -259,7 +259,7 @@ public class Apocalypse {
 		}
 
 		// See if the kill percent is reached
-		if ( percentCleared >= killPercentRequired ) {
+		if ( percentCleared >= gimmeThGold ) {
 			boolean firstPass = true;
 			for ( int i = 0; i < rewardCount; i++ ) {
 				RewardSet reward = Util.getRandom( rewards );
@@ -341,7 +341,7 @@ public class Apocalypse {
 	}
 
 	public void onPlayerTeleportEvent( PlayerTeleportEvent event ) {
-		if ( event.getTo().getWorld() != world ) {
+		if ( event.getTo().getWorld() != meBeHere ) {
 			event.setCancelled( true );
 			event.getPlayer().sendMessage( ZombieApocalypse.thWord( "notifications.no-tp", event.getPlayer() ) );
 		}

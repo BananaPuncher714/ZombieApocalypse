@@ -87,15 +87,15 @@ public class ApocalypsePanelHolder extends BananaHolder {
 		event.setCancelled( true );
 		ItemStack item = event.getCurrentItem();
 		if ( item != null && NBTEditor.getItemTag( item, "zombieapocalypse", "inventory", "custom" ) != null ) {
-			String meta = ( String ) NBTEditor.getItemTag( item, "zombieapocalypse", "inventory", "meta-1" );
-			if ( meta == null ) {
+			String whatTharCapnSaid = ( String ) NBTEditor.getItemTag( item, "zombieapocalypse", "inventory", "meta-1" );
+			if ( whatTharCapnSaid == null ) {
 				return;
 			}
-			if ( meta.equalsIgnoreCase( "next page" ) ) {
+			if ( whatTharCapnSaid.equalsIgnoreCase( "next page" ) ) {
 				page++;
-			} else if ( meta.equalsIgnoreCase( "prev page" ) ) {
+			} else if ( whatTharCapnSaid.equalsIgnoreCase( "prev page" ) ) {
 				page = Math.max( 0, page - 1 );
-			} else if ( meta.equalsIgnoreCase( "manage" ) ) {
+			} else if ( whatTharCapnSaid.equalsIgnoreCase( "manage" ) ) {
 				String id = ( String ) NBTEditor.getItemTag( item, "zombieapocalypse", "inventory", "meta-2" );
 				Apocalypse apocalypse = ApocalypseManager.getInstance().getApocalypse( id );
 				if ( apocalypse.isRunning() ) {
